@@ -4,6 +4,21 @@ const SalesProduct = (sequelize, DataTypes) => {
   },
   { timestamps: false });
 
+    SalesProduct.associate = (models) => {
+      models.Product.belongsToMany(models.Product, { 
+          as: 'product', 
+          through: SalesProduct,
+          foreignKey: 'product_id',
+          otherKey: 'sale_id',
+        });
+      models.Sales.belongsToMany(models.Sales, { 
+          as: 'sales', 
+          through: SalesProduct,
+          foreignKey: 'sale_id',
+          otherKey: 'product_id',
+        });
+      }
+  
   return SalesProduct;
 };
 
