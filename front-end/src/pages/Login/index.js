@@ -12,7 +12,7 @@ function Login() {
           name="email"
         />
       </label>
-      <label htmlFor="password">
+      <label htmlFor="passwor">
         Senha
         <input
           placeholder="password"
