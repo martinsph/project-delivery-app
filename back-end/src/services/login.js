@@ -8,7 +8,7 @@ const errors = {
 
 const getUserByEmailService = async (email) => {
   const userEmail = await User.findOne({ where: { email } });
-  if (!userEmail) return next(errors.userNotFound);
+  if (!userEmail) return errors.userNotFound; // next()
   return userEmail;
 };
 
