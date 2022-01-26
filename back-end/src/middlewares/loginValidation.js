@@ -19,14 +19,16 @@ const isNotValidPassword = (password) => {
   return false;
 };
 
-const loginValidation = (req, res, next) => {
+const loginValidation = (req, _res, next) => {
   const { email, password } = req.body;
+
   const invalidEmail = isNotValidEmail(email);
   const invalidPassword = isNotValidPassword(password);
+
   if (invalidEmail) return next(invalidEmail);
-  console.log(invalidEmail);
   if (invalidPassword) return next(invalidPassword);
+
   next();
-}
+};
 
 module.exports = loginValidation;

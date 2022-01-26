@@ -36,11 +36,11 @@ module.exports = {
         field: 'sales_id'
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
     },
