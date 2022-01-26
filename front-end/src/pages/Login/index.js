@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 // Todo: separar componentes e estilos
 // Obs: Estão aqui apenas para feedback visual
@@ -104,6 +105,15 @@ const Logo = styled.div`
 `;
 
 function Login() {
+  useEffect(() => {
+    const fetchData = async (endpoint) => {
+      const data = await axios.get(endpoint);
+      return data;
+    };
+
+    console.log(fetchData);
+  }, []);
+
   return (
     <LoginContainer>
       <Logo />
