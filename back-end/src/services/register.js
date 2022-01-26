@@ -1,30 +1,17 @@
 const { User } = require('../database/models');
-const { isValidName ,isValidEmail, isValidPassword } = require('../middlewares/registerValidation');
 const { jwtSign } = require('../middlewares/auth');
-
-const errors = {
-  emailExists: { status: 409, message: 'User already registered' },
-};
-
-const getUserByEmailService = async (email) => {
-  const userEmail = await User.findOne({ where: { email } });
-  if (userEmail) throw errors.emailExists;
-  return userEmail;
-};
+const md5 = require('md5');
 
 const register = async (newUserInfo) => {
   const { name, email, password, role } = newUserInfo;
 
-  isValidName(name);
-  isValidEmail(email);
-  isValidPassword(password);
-  await getUserByEmailService(email);
+  const passwordMd5 = md5(password);
 
-  const { dataValues: { id } } = await User.create({ name, email, password, role });
+  const newUser = await User.create({ name, email, password: passwordMd5, role });
 
-  const token = jwtSign({ id, email });
+  const token = jwtSign(newUser.dataValues);
 
-  return token;
+  return { token };
 };
 
 module.exports = register;
