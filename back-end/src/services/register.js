@@ -1,6 +1,6 @@
+const md5 = require('md5');
 const { User } = require('../database/models');
 const { jwtSign } = require('../middlewares/auth');
-const md5 = require('md5');
 
 const register = async (newUserInfo) => {
   const { name, email, password, role } = newUserInfo;

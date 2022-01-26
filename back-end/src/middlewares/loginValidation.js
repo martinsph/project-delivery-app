@@ -29,6 +29,6 @@ const loginValidation = (req, _res, next) => {
   if (invalidPassword) return next(invalidPassword);
 
   next();
-}
+};
 
 module.exports = loginValidation;

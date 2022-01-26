@@ -57,6 +57,6 @@ const registerValidation = async (req, _res, next) => {
   if (userAlreadyExists) return next(userAlreadyExists);
 
   next();
-}
+};
 
 module.exports = registerValidation;
