@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import registerUser from '../../fetch';
 import {
   RegisterContent,
@@ -12,12 +13,22 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [validate, setValidate] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const handleSubmit = async () => {
     const data = JSON.stringify({ name, email, password });
     const rota = 'register';
-    await registerUser(data, rota);
+    const register = await registerUser(data, rota);
+    setValidate(register);
   };
+  const handleRedirect = () => {
+    setRedirect(true);
+  };
+  // const handleRedirect = async () => {
+  //   if (!validate) return false;
+  //   return true;
+  // };
 
   return (
     <RegisterContent>
@@ -54,10 +65,13 @@ function Register() {
         <Button
           type="button"
           data-testid="common_register__button-register"
-          onClick={ handleSubmit }
+          onClick={ () => { handleSubmit(); handleRedirect(); } }
+          // disabled={ () => handleChange() }
         >
           Cadastrar
         </Button>
+        { redirect && <Navigate to="/products" /> }
+        <button type="button" onClick={ () => handleChange() }>btn</button>
       </FormRegister>
     </RegisterContent>
   );
