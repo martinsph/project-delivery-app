@@ -11,7 +11,14 @@ const register = async (newUserInfo) => {
 
   const token = jwtSign(newUser.dataValues);
 
-  return { token };
+  const userInfo = {
+    name,
+    email,
+    role,
+    token,
+  };
+
+  return userInfo;
 };
 
 module.exports = register;
