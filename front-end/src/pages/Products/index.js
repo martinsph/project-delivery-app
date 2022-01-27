@@ -7,6 +7,7 @@ import {
   Image,
   Input,
   Span,
+  Cart,
 } from './styles';
 
 const CARDS_COUNT = 11;
@@ -33,7 +34,7 @@ const Products = () => {
               <Span data-testid={ `customer_products__element-card-price-${i + 1}` }>
                 <strong>
                   R$5,
-                  {Math.floor(Math.random() * MAX) + MIN}
+                  { Math.floor(Math.random() * MAX) + MIN }
                 </strong>
               </Span>
               <Image
@@ -59,6 +60,11 @@ const Products = () => {
           ))
         }
       </CardsContainer>
+      <Cart data-testid="customer_products__checkout-bottom-value">
+        <span>
+          { `Ver carrinho: R$ ${Math.floor(Math.random() * MAX) + MIN}` }
+        </span>
+      </Cart>
     </Container>
   );
 };
