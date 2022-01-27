@@ -12,7 +12,6 @@ const registerUser = async (data, rota) => {
   };
   try {
     const result = await axios(config);
-    console.log(result);
     return result;
   } catch (error) {
     return error;
