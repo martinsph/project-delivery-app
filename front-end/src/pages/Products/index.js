@@ -1,46 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CardsContainer = styled.div`
-  // border: 1px solid;
-  justify-content: center;
-  margin: auto;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 40px;
-  display: flex;
-`;
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 300px;
-  width: 220px;
-  border: 1px solid;
-  border-radius: 4px;
-  overflow: hidden;
-
-  & div {
-    background-color: #EAF1EF;
-    padding: 20px;
-    padding-top: 10px;
-    text-align: center;
-  }
-`;
-
-const Image = styled.img`
-  flex: 1;
-`;
-
-const Input = styled.input`
-  width: 40px;
-`;
+import {
+  Container,
+  CardsContainer,
+  Card,
+  Image,
+  Input,
+  Span,
+} from './styles';
 
 const CARDS_COUNT = 11;
 
@@ -60,11 +27,22 @@ const Products = () => {
         {
           cards.map((_, i) => (
             <Card key={ i }>
-              <Image />
+              <Span data-testid={ `customer_products__element-card-price-${i + 1}` }>
+                <strong>
+                  R$5,
+                  {Math.floor(Math.random() * 100)}
+                </strong>
+              </Span>
+              <Image data-testid={ `customer_products__img-card-bg-image-${i + 1}` } />
               <div>
-                <h4>Heineken</h4>
+                <h4
+                  data-testid={ `customer_products__element-card-title-${i + 1}` }
+                >
+                  Heineken
+                </h4>
                 <form>
                   <Input
+                    data-testid={ `customer_products__input-card-quantity-${i + 1}` }
                     type="number"
                     min="0"
                     onChange={ handleCount }
