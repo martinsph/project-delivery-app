@@ -9,6 +9,10 @@ const JWT_OPTIONS = {
   algorithm: 'HS256',
 };
 
+const errors = {
+  tokenError: { status: 400, message: 'Missing or expired token' },
+};
+
 const jwtSign = (payload) => {
   const token = jwt.sign(payload, SECRET, JWT_OPTIONS);
   return token;
@@ -22,8 +26,7 @@ const jwtDecode = (req, res, next) => {
     req.user = decode;
     next();
   } catch (err) {
-    console.log(err);
-    return null;
+    return next(errors.tokenError);
   }
 };
 
