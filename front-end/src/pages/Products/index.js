@@ -10,7 +10,10 @@ import {
 } from './styles';
 
 const CARDS_COUNT = 11;
+const MAX = 90;
+const MIN = 10;
 
+// ? Mocking an array to render the cards
 const cards = Array(CARDS_COUNT).fill();
 
 const Products = () => {
@@ -30,10 +33,13 @@ const Products = () => {
               <Span data-testid={ `customer_products__element-card-price-${i + 1}` }>
                 <strong>
                   R$5,
-                  {Math.floor(Math.random() * 100)}
+                  {Math.floor(Math.random() * MAX) + MIN}
                 </strong>
               </Span>
-              <Image data-testid={ `customer_products__img-card-bg-image-${i + 1}` } />
+              <Image
+                src="https://www.cellshop.com/7419022-large_default/cerveja-heineken-premium-quality-250ml-garrafa.jpg"
+                data-testid={ `customer_products__img-card-bg-image-${i + 1}` }
+              />
               <div>
                 <h4
                   data-testid={ `customer_products__element-card-title-${i + 1}` }
