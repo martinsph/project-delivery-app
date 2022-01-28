@@ -13,22 +13,28 @@ function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [validate, setValidate] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async () => {
     const data = JSON.stringify({ name, email, password });
     const rota = 'register';
     const register = await registerUser(data, rota);
-    setValidate(register);
+    if (register.token) return setRedirect(true);
+    if (register.message) return setErrorMessage(register.message);
   };
-  const handleRedirect = () => {
-    setRedirect(true);
+
+  const messageError = (error) => {
+    if (error) {
+      return (
+        <span
+          data-testid="common_register__element-invalid_register"
+        >
+          { error }
+        </span>
+      );
+    }
   };
-  // const handleRedirect = async () => {
-  //   if (!validate) return false;
-  //   return true;
-  // };
 
   return (
     <RegisterContent>
@@ -65,14 +71,14 @@ function Register() {
         <Button
           type="button"
           data-testid="common_register__button-register"
-          onClick={ () => { handleSubmit(); handleRedirect(); } }
-          // disabled={ () => handleChange() }
+          disabled={ !(name && email && password) }
+          onClick={ () => { handleSubmit(); } }
         >
           Cadastrar
         </Button>
         { redirect && <Navigate to="/products" /> }
-        <button type="button" onClick={ () => handleChange() }>btn</button>
       </FormRegister>
+      { messageError(errorMessage) }
     </RegisterContent>
   );
 }

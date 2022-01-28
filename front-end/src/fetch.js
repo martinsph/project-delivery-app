@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const registerUser = async (data, rota) => {
   const url = `http://localhost:3001/${rota}`;
@@ -8,14 +8,39 @@ const registerUser = async (data, rota) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    data,
+    body: data,
   };
   try {
-    const result = await axios(config);
-    return result;
+    const result = await fetch(url, config);
+    const resultMessage = await result.json();
+    return resultMessage;
   } catch (error) {
     return error;
   }
 };
 
 export default registerUser;
+
+// import axios from 'axios';
+
+// const registerUser = async (data, rota) => {
+//   const url = `http://localhost:3001/${rota}`;
+//   const config = {
+//     method: 'post',
+//     url,
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     data,
+//   };
+//   try {
+//     const result = await axios(config);
+//     console.log(result);
+//     return result;
+//   } catch (error) {
+//     console.log(error.message);
+//     return error;
+//   }
+// };
+
+// export default registerUser;
