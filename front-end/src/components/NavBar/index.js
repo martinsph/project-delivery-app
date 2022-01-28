@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
@@ -50,15 +51,11 @@ const renderUserType = (role) => {
   return <Link to="/products">Gerenciar Usuários</Link>;
 };
 
-const NavbarComponent = () => {
-  console.log(NavbarComponent);
+const NavbarComponent = ({ userRole }) => {
+  console.log(userRole);
   return (
-    <Header className="navbar">
-      <nav>
-        {
-          renderUserType('user')
-        }
-      </nav>
+    <Header>
+      <nav>{ renderUserType(userRole) }</nav>
       <h3>Usuario</h3>
       <Link to="/products"> Sair</Link>
     </Header>
@@ -66,3 +63,7 @@ const NavbarComponent = () => {
 };
 
 export default NavbarComponent;
+
+NavbarComponent.propTypes = {
+  userRole: PropTypes.string.isRequired,
+};
