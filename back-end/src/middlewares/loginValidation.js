@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const { User } = require('../database/models');
+const { user } = require('../database/models');
 
 const errors = {
   emailFormat: { status: 400, message: '"email" must be a valid email' },
@@ -25,14 +25,14 @@ const isNotValidPassword = (password) => {
 };
 
 const doesUserExist = async (email) => {
-  const userEmail = await User.findOne({ where: { email } });
+  const userEmail = await user.findOne({ where: { email } });
   if (!userEmail) return false;
   return userEmail;
 };
 
 const doesEmailAndPasswordMatch = async (email, password) => {
-  const user = await User.findOne({ where: { email, password: md5(password) } });
-  if (!user) return errors.userNotAllowed;
+  const foundUser = await user.findOne({ where: { email, password: md5(password) } });
+  if (!foundUser) return errors.userNotAllowed;
   return false;
 };
 
