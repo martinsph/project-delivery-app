@@ -56,6 +56,7 @@ function Register() {
             data-testid="common_register__input-email"
             name="email"
             onChange={ ({ target: { value } }) => setEmail(value) }
+            type="email"
           />
         </LabelRegister>
         <LabelRegister htmlFor="password">
@@ -66,12 +67,17 @@ function Register() {
             name="password"
             onChange={ ({ target: { value } }) => setPassword(value) }
             type="password"
+            minLength="6"
           />
         </LabelRegister>
         <Button
           type="button"
           data-testid="common_register__button-register"
-          disabled={ !(name && email && password) }
+          disabled={
+            !(/.{12,}/.test(name)
+            && /.{6,}/.test(password)
+            && /^\w+@\w+\.com$/.test(email))
+          }
           onClick={ () => { handleSubmit(); } }
         >
           Cadastrar
