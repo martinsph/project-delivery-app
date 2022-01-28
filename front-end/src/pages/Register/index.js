@@ -82,7 +82,7 @@ function Register() {
         >
           Cadastrar
         </Button>
-        { redirect && <Navigate to="/products" /> }
+        { redirect && <Navigate to="/customer/products" /> }
       </FormRegister>
       { messageError(errorMessage) }
     </RegisterContent>
