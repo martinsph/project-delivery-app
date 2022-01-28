@@ -1,4 +1,4 @@
-const { User } = require('../database/models');
+const { user } = require('../database/models');
 
 const errors = {
   emailFormat: { status: 400, message: '"email" must be a valid email' },
@@ -35,8 +35,8 @@ const isNotValidPassword = (password) => {
 };
 
 const doesUserExist = async (email, name) => {
-  const userEmail = await User.findOne({ where: { email } });
-  const userName = await User.findOne({ where: { name } });
+  const userEmail = await user.findOne({ where: { email } });
+  const userName = await user.findOne({ where: { name } });
 
   if (userEmail || userName) return errors.userExists;
 
