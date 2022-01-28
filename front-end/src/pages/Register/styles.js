@@ -7,7 +7,7 @@ export const RegisterContent = styled.div`
   margin: -130px 0 0 -210px;
   padding: 10px;
   position: absolute;
-  top: 20%;
+  top: 30%;
   display: flex;
   justify-content: center;
 
@@ -21,7 +21,7 @@ export const FormRegister = styled.form`
   padding: 30px;
   position: absolute;
   top: 50%;
-  width: 50%;
+  width: 70%;
   `;
 export const LabelRegister = styled.label`
   margin: 15px;
