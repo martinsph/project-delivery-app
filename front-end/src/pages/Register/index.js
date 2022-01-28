@@ -76,7 +76,7 @@ function Register() {
           disabled={
             !(/.{12,}/.test(name)
             && /.{6,}/.test(password)
-            && /^\w+@\w+\.com$/.test(email))
+            && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
           }
           onClick={ () => { handleSubmit(); } }
         >
