@@ -8,6 +8,7 @@ export const Page = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #FBFFFE;
 `;
 
 export const ContainerSection = styled.div`
@@ -24,7 +25,7 @@ export const ContainerSectionSuperior = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid;
-  box-shadow: 0 2px 4px rgb(0 0 0  / 50%);
+  box-shadow: 0 2px 4px #00000040;
   margin-bottom: 30px;
   & span {
     align-self: flex-end;
@@ -35,7 +36,7 @@ export const ContainerSectionInferior = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid;
-  box-shadow: 0 2px 4px rgb(0 0 0  / 50%);
+  box-shadow: 0 2px 4px #00000040;
 `;
 
 export const Span = styled.span`
