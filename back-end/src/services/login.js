@@ -1,27 +1,16 @@
-const { User } = require('../database/models');
-const { isValidEmail, isValidPassword } = require('../middlewares/loginValidation');
 const { jwtSign } = require('../middlewares/auth');
 
-const errors = {
-  userNotFound: { status: 404, message: 'Not found' },
-};
+const login = async (user) => {
+  const token = jwtSign(user);
 
-const getUserByEmailService = async (email) => {
-  const userEmail = await User.findOne({ where: { email } });
-  if (!userEmail) return errors.userNotFound; // next()
-  return userEmail;
-};
+  const userInfo = {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    token,
+  };
 
-const login = async (loginInfo) => {
-  const { email, password } = loginInfo;
-
-  isValidEmail(email);
-  isValidPassword(password);
-  await getUserByEmailService(email);
-
-  const token = jwtSign({ email, password });
-
-  return { token };
+  return userInfo;
 };
 
 module.exports = login; 
