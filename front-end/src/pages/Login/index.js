@@ -11,13 +11,14 @@ function Login() {
   const [redirectLogin, setRedirectLogin] = useState(false);
   const [redirectRegister, setRedirectRegister] = useState(false);
   const [email, setEmail] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async () => {
     const data = JSON.stringify({ email, password });
     const route = 'login';
     const register = await registerUser(data, route);
+    console.log(register);
     if (register.token) return setRedirectLogin(true);
     if (register.message) return setErrorMessage(register.message);
   };
@@ -27,14 +28,9 @@ function Login() {
   };
 
   const messageError = (error) => {
+    const id = 'common_login__element-invalid-email';
     if (error) {
-      return (
-        <span
-          data-testid="common_register__element-invalid_register"
-        >
-          { error }
-        </span>
-      );
+      return <span data-testid={ id }>{ error }</span>;
     }
   };
 
@@ -60,12 +56,16 @@ function Login() {
             placeholder="password"
             data-testid="common_login__input-password"
             name="password"
+            type="password"
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
         <button
           type="button"
           data-testid="common_login__button-login"
+          disabled={
+            !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+          }
           onClick={ () => { handleSubmit(); } }
         >
           Login
@@ -75,7 +75,6 @@ function Login() {
         <button
           type="button"
           data-testid="common_login__button-register"
-          // disabled={ () => {} }
           onClick={ () => { handleRegister(); } }
         >
           Ainda não tenho conta
