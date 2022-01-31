@@ -70,7 +70,7 @@ function Login() {
         >
           Login
         </button>
-        { redirectLogin && <Navigate to="/products" /> }
+        { redirectLogin && <Navigate to="/customer/products" /> }
 
         <button
           type="button"
