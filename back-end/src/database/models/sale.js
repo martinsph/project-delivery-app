@@ -1,5 +1,5 @@
-const Sale = (sequelize, DataTypes) => {
-  const Sale = sequelize.define("Sale", {
+const sale = (sequelize, DataTypes) => {
+  const sale = sequelize.define("sale", {
     total_price: DataTypes.DECIMAL(9, 2),
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
@@ -7,13 +7,13 @@ const Sale = (sequelize, DataTypes) => {
     status: DataTypes.STRING,
   },
   { timestamps: false });
-  Sale.associate = (model) => {
-    Sale.belongsTo(model.User,
+  sale.associate = (model) => {
+    sale.belongsTo(model.user,
       { foreingKey: 'user_id', as: 'user' },
       { foreingKey: 'seller_id', as: 'seller' });
   }
 
-  return Sale;
+  return sale;
 };
 
-module.exports = Sale;
+module.exports = sale;

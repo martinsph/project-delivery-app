@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Form = styled.form`
+  background-color: #FBFFFE;
+`;
+
 export const Label = styled.label`
   display: inline-flex;
   flex-direction: column;
-  margin-left: 30px;
-
+  background-color: #FBFFFE;
+  margin: 10px;
+  
   &:nth-child(1) {
     width:250px;
   }
@@ -56,7 +61,7 @@ export const Select = styled.select`
 
 function CheckoutDelivery() {
   return (
-    <form action="">
+    <Form action="">
       <Label htmlFor="select-seller">
         P. Vendedora Responsável
         <Select
@@ -94,7 +99,7 @@ function CheckoutDelivery() {
       >
         FINALIZAR PEDIDO
       </Button>
-    </form>
+    </Form>
   );
 }
 
