@@ -7,7 +7,7 @@ import {
 } from './styles';
 
 function Login() {
-  const [redirect, _setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   return (
     <LoginContainer>
