@@ -13,7 +13,7 @@ const errors = {
 const isNotValidName = (name) => {
   const nameLength = 12;
   if (name == null) return errors.passwordEmpty;
-  if (name.length > nameLength) return errors.nameLength;
+  if (name.length < nameLength) return errors.nameLength;
 
   return false;
 };

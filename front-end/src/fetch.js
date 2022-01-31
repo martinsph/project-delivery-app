@@ -4,7 +4,6 @@ const registerUser = async (data, rota) => {
   const url = `http://localhost:3001/${rota}`;
   const config = {
     method: 'post',
-    url,
     headers: {
       'Content-Type': 'application/json',
     },

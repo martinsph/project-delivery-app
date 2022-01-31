@@ -16,6 +16,7 @@ const register = async (newUserInfo) => {
     email,
     role,
     token,
+    password: passwordMd5,
   };
 
   return userInfo;
