@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import registerUser from '../../fetch';
 import {
   LoginContainer,
   Form,
@@ -7,7 +8,35 @@ import {
 } from './styles';
 
 function Login() {
-  const [redirect, _setRedirect] = useState(false);
+  const [redirectLogin, setRedirectLogin] = useState(false);
+  const [redirectRegister, setRedirectRegister] = useState(false);
+  const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async () => {
+    const data = JSON.stringify({ email, password });
+    const route = 'login';
+    const register = await registerUser(data, route);
+    if (register.token) return setRedirectLogin(true);
+    if (register.message) return setErrorMessage(register.message);
+  };
+
+  const handleRegister = () => {
+    setRedirectRegister(true);
+  };
+
+  const messageError = (error) => {
+    if (error) {
+      return (
+        <span
+          data-testid="common_register__element-invalid_register"
+        >
+          { error }
+        </span>
+      );
+    }
+  };
 
   return (
     <LoginContainer>
@@ -21,6 +50,7 @@ function Login() {
             placeholder="email"
             data-testid="common_login__input-email"
             name="email"
+            onChange={ ({ target: { value } }) => setEmail(value) }
           />
         </label>
         <label htmlFor="passwor">
@@ -30,19 +60,30 @@ function Login() {
             placeholder="password"
             data-testid="common_login__input-password"
             name="password"
+            onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
-        <button type="button" data-testid="common_login__button-login">Login</button>
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          onClick={ () => { handleSubmit(); } }
+        >
+          Login
+        </button>
+        { redirectLogin && <Navigate to="/products" /> }
+
         <button
           type="button"
           data-testid="common_login__button-register"
-          disabled={ () => {} }
-          onClick={ () => {} }
+          // disabled={ () => {} }
+          onClick={ () => { handleRegister(); } }
         >
           Ainda não tenho conta
         </button>
-        { redirect && <Navigate to="/customer/products" /> }
+        { redirectRegister && <Navigate to="/register" /> }
+
       </Form>
+      { messageError(errorMessage) }
     </LoginContainer>
   );
 }
