@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import {
   LoginContainer,
   Form,
@@ -8,14 +7,7 @@ import {
 } from './styles';
 
 function Login() {
-  useEffect(() => {
-    const fetchData = async (endpoint) => {
-      const data = await axios.get(endpoint);
-      return data;
-    };
-
-    console.log(fetchData);
-  }, []);
+  const [redirect, _setRedirect] = useState(false);
 
   return (
     <LoginContainer>
@@ -41,17 +33,15 @@ function Login() {
           />
         </label>
         <button type="button" data-testid="common_login__button-login">Login</button>
-
-        <Link
-          to="/register"
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          disabled={ () => {} }
+          onClick={ () => {} }
         >
-          <button
-            type="button"
-            data-testid="common_login__button-register"
-          >
-            Ainda não tenho conta
-          </button>
-        </Link>
+          Ainda não tenho conta
+        </button>
+        { redirect && <Navigate to="/customer/products" /> }
       </Form>
     </LoginContainer>
   );
