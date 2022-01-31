@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Td = styled.td`
   text-align: center;
   padding: 6px;
+  font-weight: bold;
 
   &:nth-child(1) {
     background-color: #2FC18C;
@@ -28,48 +34,47 @@ export const Td = styled.td`
 `;
 
 export const Table = styled.table`
-  border-collapse: collapse;
+  margin: 0 8px;
 `;
 
 export const Head = styled.div`
   display: flex;
+  gap: 50px;
+  align-items: center;
   background-color: #EBF1EF;
   padding: 8px;
 `;
 
 export const Header = styled.p`
-  height: 30px;
-
   &:nth-child(1) {
-    margin-right: 50px
-  }
-
-  &:nth-child(2) {
-    margin-right: 50px
+    font-weight: bold;
   }
 
   &:nth-child(3) {
-    background-color: #EFFCF9;
-    border-radius: 6px;
-    margin-right: 50px
+    background-color: #F0FBF9;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
   }
 
   &:nth-child(4) {
-    background-color: #3AD5B0;
-    border-radius: 6px;
-    margin-right: 50px
+    background-color: #3BD5B0;
+    padding: 4px 24px;
+    border-radius: 4px;
+    font-weight: bold;
   }
 
   &:nth-child(5) {
     background-color: #036B52;
-    border-radius: 6px;
-    color: #F2FFFC;
+    padding: 4px 6px;
+    border-radius: 4px;
+    color: white;
   }
 `;
 
 function DetailsCustomer() {
   return (
-    <>
+    <Container>
       <Head>
         <Header>PEDIDO 003</Header>
         <Header>P. Venda: Fulana de Tal</Header>
@@ -78,7 +83,7 @@ function DetailsCustomer() {
         <Header>MARCAR COMO ENTREGUE</Header>
       </Head>
       <Table>
-        <tbody>
+        <thead>
           <tr>
             <th>Item</th>
             <th>Descrição</th>
@@ -86,27 +91,39 @@ function DetailsCustomer() {
             <th>Valor Unitário</th>
             <th>Sub-total</th>
           </tr>
-        </tbody>
+        </thead>
         <tbody>
           <tr>
-            <Td>2</Td>
+            <Td>1</Td>
             <Td>Cerveja Heineken 330ml</Td>
             <Td>5</Td>
             <Td>R$7,90</Td>
             <Td>R$15,80</Td>
           </tr>
-        </tbody>
-        <tbody>
           <tr>
             <Td>2</Td>
-            <Td>Cerveja Heineken 330ml</Td>
+            <Td>Cerveja Brahma 330ml</Td>
+            <Td>5</Td>
+            <Td>R$7,90</Td>
+            <Td>R$15,80</Td>
+          </tr>
+          <tr>
+            <Td>3</Td>
+            <Td>Cerveja Skoll 330ml</Td>
+            <Td>5</Td>
+            <Td>R$7,90</Td>
+            <Td>R$15,80</Td>
+          </tr>
+          <tr>
+            <Td>4</Td>
+            <Td>Cerveja Dolly 330ml</Td>
             <Td>5</Td>
             <Td>R$7,90</Td>
             <Td>R$15,80</Td>
           </tr>
         </tbody>
       </Table>
-    </>
+    </Container>
   );
 }
 
