@@ -139,11 +139,16 @@ function Login() {
           />
         </label>
         <button type="button" data-testid="common_login__button-login">Login</button>
+
         <Link
           to="/register"
-          data-testid="common_login__button-register"
         >
-          Ainda não tenho conta
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Ainda não tenho conta
+          </button>
         </Link>
       </Form>
     </LoginContainer>
