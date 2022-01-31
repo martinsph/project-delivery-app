@@ -52,7 +52,7 @@ const renderUserType = (role) => {
 };
 
 const NavbarComponent = ({ userRole }) => {
-  console.log(userRole);
+  console.log('');
   return (
     <Header>
       <nav>{ renderUserType(userRole) }</nav>

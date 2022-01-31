@@ -12,6 +12,10 @@ export const Container = styled.div`
   margin-top: 60px;
   display: flex;
   flex-direction: column;
+
+  & h2 {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Form = styled.form`
