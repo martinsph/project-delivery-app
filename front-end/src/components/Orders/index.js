@@ -38,8 +38,23 @@ export const Card = styled.div`
   }
 `;
 
-function CheckoutDelivery({ id }) {
-  console.log(id);
+const Address = styled.p`
+  display: flex;
+  text-align: center;
+  align-self: center;
+  font-weight: bold;
+  background: royalblue;
+`;
+
+function CheckoutDelivery({ id, address }) {
+  const renderAddress = () => (
+    <Address
+      data-testid={ `seller_orders__element-card-address-${id}` }
+    >
+      Endereço, Nº 10
+    </Address>
+  );
+
   return (
     <Card>
       <div className="order-number">
@@ -50,8 +65,9 @@ function CheckoutDelivery({ id }) {
       </div>
       <div className="order-info">
         <p data-testid={ `customer_orders__element-order-date-${id}` }>31/01/2022</p>
-        <p> R$23,30</p>
+        <p data-testid={ `seller_orders__element-card-price-${id}` }>R$23,30</p>
       </div>
+      { address && renderAddress() }
     </Card>
   );
 }
@@ -60,4 +76,5 @@ export default CheckoutDelivery;
 
 CheckoutDelivery.propTypes = {
   id: PropTypes.number.isRequired,
+  address: PropTypes.bool.isRequired,
 };

@@ -21,25 +21,25 @@ const arraySize = 6;
 
 const panels = Array(arraySize).fill();
 
-function CustomerCheckout() {
+function OrdersSellers() {
   // const [orders, setOrders] = useState([]);
   // Renderiza os pedidos do usuário
   // ao entrar no endpoint dos Meus Pedidos
   useEffect(() => {
     console.log(1);
-    // const myId = await fetch('http://localhost:3001/');
-    // const userOrders  = await fetch(`http://localhost:3001/sales/${myId}`);
-    // setOrders(userOrders);
+    // const sellerId = await fetch('http://localhost:3001/');
+    // const sellerOrders  = await fetch(`http://localhost:3001/sales/${sellerId}`);
+    // setOrders(sellerOrders);
   }, []);
 
   return (
     <Page>
-      <NavBar userRole="user" />
+      <NavBar userRole="seller" />
       <Container>
-        { panels.map((_, i) => <Panel key={ i } id={ i } />) }
+        { panels.map((_, i) => <Panel key={ i } id={ i } address />) }
       </Container>
     </Page>
   );
 }
 
-export default CustomerCheckout;
+export default OrdersSellers;
