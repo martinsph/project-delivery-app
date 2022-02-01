@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
-import CheckoutDelivery from '../../components/Checkout/CheckoutDelivery';
-import CheckoutItems from '../../components/Checkout/CheckoutItems';
+import DetailsCustomer from '../../components/Details/DetailsCustomer';
 
 export const Page = styled.div`
   display: flex;
@@ -16,15 +15,11 @@ export const ContainerSection = styled.div`
   margin: 0 auto;
   flex-direction: column;
   margin-top: 60px;
-  & div {
-    padding: 20px;
-  }
 `;
 
 export const ContainerSectionSuperior = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid;
   box-shadow: 0 2px 4px #00000040;
   margin-bottom: 30px;
   & span {
@@ -32,38 +27,31 @@ export const ContainerSectionSuperior = styled.div`
   }
 `;
 
-export const ContainerSectionInferior = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid;
-  box-shadow: 0 2px 4px #00000040;
-`;
-
 export const Span = styled.span`
-  padding: 6px;
+  padding: 6px 12px;
   background-color: #036B52;
-  border-radius: 6px;
-  margin-top: 30px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.6rem;
+  margin-top: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   color: #F2FFFC;
 `;
 
-function CustomerCheckout() {
+function DetailsOrderCustomer() {
   return (
     <Page>
       <NavBar />
       <ContainerSection>
-        <h2>Finalizar Pedido</h2>
+        <h2>Detalhes do Pedido</h2>
         <ContainerSectionSuperior>
-          <CheckoutItems />
-          <Span data-testid="customer_checkout">Total</Span>
+          <DetailsCustomer />
+          <Span data-testid="customer_details">Total: R$ </Span>
         </ContainerSectionSuperior>
-        <h2>Detalhes e Endereço para Entrega</h2>
-        <ContainerSectionInferior>
-          <CheckoutDelivery />
-        </ContainerSectionInferior>
       </ContainerSection>
     </Page>
   );
 }
 
-export default CustomerCheckout;
+export default DetailsOrderCustomer;

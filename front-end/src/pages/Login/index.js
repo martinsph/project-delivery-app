@@ -1,123 +1,42 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
-// Todo: separar componentes e estilos
-// Obs: Estão aqui apenas para feedback visual
-const LoginContainer = styled.div`
-  display: flex;
-  background: snow;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin: auto;
-  padding: 24px 28px;
-  width: max-content;
-  border: 1px solid;
-  border-radius: 4px;
-  // animation: float 2s infinite alternate;
-`;
-
-const Form = styled.form`
-  align-items: center;
-  display: flex;
-  border-radius: 4px;
-  box-sizing: border-box;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto;
-  width: max-content;
-  gap: 12px;
-  
-  & input {
-    width: 220px;
-    padding: 6px;
-    border: 1px solid #bbb;
-    border-radius: 3px;
-  }
-
-  & button {
-    align-self: stretch;
-    padding: 6px;
-    border-radius: 3px;
-    border: 1px solid #bbb;
-    text-transform: uppercase;
-    box-shadow: 0 4px 6px -4px;
-    font-weight: bold;
-    transition: 100ms;
-
-    &:active {
-      box-shadow: 0 0 0 0;
-      transform: scale(.99);
-    }
-  }
-
-  & a {
-    font-size: .85rem;
-  }
-
-  @keyframes float {
-    to {
-      transform: translateY(-20px);
-    }
-  }
-`;
-
-const Logo = styled.div`
-  width: 60px;
-  height: 60px;
-  position: relative;
-  filter: drop-shadow(0 0 1px);
-  // border-radius: 50%;
-
-  &:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background:
-      radial-gradient(circle 8px at 70% 30%, black 50%, transparent 55%),
-      linear-gradient(yellow 50%, transparent 0);
-    border-radius: 50%;
-    transform: rotate(-40deg);
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    transform: rotate(40deg);
-    background: linear-gradient(transparent 50%, yellow 0);
-  }
-
-  &:after, &:before {
-    animation: eat 160ms infinite alternate;
-  }
-
-  @keyframes eat {
-    to {
-      transform: rotate(0);
-    }
-  }
-`;
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import registerUser from '../../fetch';
+import {
+  LoginContainer,
+  Form,
+  Logo,
+} from './styles';
 
 function Login() {
-  useEffect(() => {
-    const fetchData = async (endpoint) => {
-      const data = await axios.get(endpoint);
-      return data;
-    };
+  const [redirectLogin, setRedirectLogin] = useState(false);
+  const [redirectRegister, setRedirectRegister] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-    console.log(fetchData);
-  }, []);
+  const handleSubmit = async () => {
+    const data = JSON.stringify({ email, password });
+    const route = 'login';
+    const register = await registerUser(data, route);
+    console.log(register);
+    if (register.token) return setRedirectLogin(true);
+    if (register.message) return setErrorMessage(register.message);
+  };
+
+  const handleRegister = () => {
+    setRedirectRegister(true);
+  };
+
+  const messageError = (error) => {
+    const id = 'common_login__element-invalid-email';
+    if (error) {
+      return <span data-testid={ id }>{ error }</span>;
+    }
+  };
 
   return (
     <LoginContainer>
       <Logo />
-      {/* <img src="" alt="" /> */}
       <h2>Nice app</h2>
       <Form>
         <label htmlFor="email">
@@ -127,6 +46,7 @@ function Login() {
             placeholder="email"
             data-testid="common_login__input-email"
             name="email"
+            onChange={ ({ target: { value } }) => setEmail(value) }
           />
         </label>
         <label htmlFor="passwor">
@@ -136,21 +56,33 @@ function Login() {
             placeholder="password"
             data-testid="common_login__input-password"
             name="password"
+            type="password"
+            onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
-        <button type="button" data-testid="common_login__button-login">Login</button>
-
-        <Link
-          to="/register"
+        <button
+          type="button"
+          data-testid="common_login__button-login"
+          disabled={
+            !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+          }
+          onClick={ () => { handleSubmit(); } }
         >
-          <button
-            type="button"
-            data-testid="common_login__button-register"
-          >
-            Ainda não tenho conta
-          </button>
-        </Link>
+          Login
+        </button>
+        { redirectLogin && <Navigate to="/customer/products" /> }
+
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+          onClick={ () => { handleRegister(); } }
+        >
+          Ainda não tenho conta
+        </button>
+        { redirectRegister && <Navigate to="/register" /> }
+
       </Form>
+      { messageError(errorMessage) }
     </LoginContainer>
   );
 }

@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+export const Form = styled.form`
+  background-color: #FBFFFE;
+`;
+
 export const Label = styled.label`
   display: inline-flex;
   flex-direction: column;
-  margin-left: 30px;
-
+  background-color: #FBFFFE;
+  margin: 10px;
+  
   &:nth-child(1) {
     width:250px;
   }
@@ -24,11 +29,24 @@ export const Button = styled.button`
   padding: 6px;
   background-color: #036B52;
   color: #F2FFFC;
+  border: none;
+  box-shadow: 0 8px 4px -4px #00000050;
   border-radius: 6px;
   margin: auto;
   margin-top: 30px;
   height: 40px;
+  font-weight: bold;
   align-items: center;
+  transition: 100ms;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0;
+  }
 `;
 
 export const Input = styled.input`
@@ -43,7 +61,7 @@ export const Select = styled.select`
 
 function CheckoutDelivery() {
   return (
-    <form action="">
+    <Form action="">
       <Label htmlFor="select-seller">
         P. Vendedora Responsável
         <Select
@@ -81,7 +99,7 @@ function CheckoutDelivery() {
       >
         FINALIZAR PEDIDO
       </Button>
-    </form>
+    </Form>
   );
 }
 

@@ -1,7 +1,7 @@
 // import axios from 'axios';
 
-const registerUser = async (data, rota) => {
-  const url = `http://localhost:3001/${rota}`;
+const registerUser = async (data, route) => {
+  const url = `http://localhost:3001/${route}`;
   const config = {
     method: 'post',
     headers: {

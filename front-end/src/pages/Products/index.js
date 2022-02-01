@@ -26,7 +26,7 @@ const Products = () => {
 
   return (
     <Container>
-      <NavBar />
+      <NavBar userRole="user" />
       <CardsContainer>
         {
           cards.map((_, i) => (
