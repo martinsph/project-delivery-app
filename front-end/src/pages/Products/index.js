@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import {
   Container,
@@ -7,15 +8,12 @@ import {
   Image,
   Input,
   Span,
-  // Cart,
+  Cart,
 } from './styles';
 
-// const CARDS_COUNT = 11;
-// const MAX = 90;
-// const MIN = 10;
-
-// ? Mocking an array to render the cards
-// const cards = Array(CARDS_COUNT).fill();
+const CARDS_COUNT = 11;
+const MAX = 90;
+const MIN = 10;
 
 const Products = () => {
   // const [itemCount, setItemCount] = useState(0);
@@ -25,26 +23,6 @@ const Products = () => {
   const handleCount = (e) => {
     console.log(e.target.value);
   };
-
-  // const fetchProducts = async () => {
-  //   const url = 'http://localhost:3001/products';
-  //   const config = {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
-  //   try {
-  //     const result = await fetch(url, config);
-  //     const resultMessage = await result.json();
-  //     console.log(resultMessage);
-  //     setProducts(resultMessage);
-  //     setIsloading(false);
-  //     return resultMessage;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -68,7 +46,7 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading) return <Loading />;
   return (
     <Container>
       <NavBar userRole="user" />
@@ -104,11 +82,11 @@ const Products = () => {
           ))
         }
       </CardsContainer>
-      {/* <Cart data-testid="customer_products__checkout-bottom-value">
+      <Cart data-testid="customer_products__checkout-bottom-value">
         <span>
           { `Ver carrinho: R$ ${Math.floor(Math.random() * MAX) + MIN}` }
         </span>
-      </Cart> */}
+      </Cart>
     </Container>
   );
 };
