@@ -1,3 +1,4 @@
+// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
@@ -21,6 +22,16 @@ const arraySize = 6;
 const panels = Array(arraySize).fill();
 
 function CustomerCheckout() {
+  // const [orders, setOrders] = useState([]);
+  // Renderiza os pedidos do usuário
+  // ao entrar no endpoint dos Meus Pedidos
+  useEffect(() => {
+    console.log(1);
+    // const myId = await fetch('http://localhost:3001/');
+    // const userOrders  = await fetch(`http://localhost:3001/sales/${myId}`);
+    // setOrders(userOrders);
+  }, []);
+
   return (
     <Page>
       <NavBar />
