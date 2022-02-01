@@ -21,7 +21,7 @@ const arraySize = 6;
 
 const panels = Array(arraySize).fill();
 
-function CustomerCheckout() {
+function CustomerOrders() {
   // const [orders, setOrders] = useState([]);
   // Renderiza os pedidos do usuário
   // ao entrar no endpoint dos Meus Pedidos
@@ -42,4 +42,4 @@ function CustomerCheckout() {
   );
 }
 
-export default CustomerCheckout;
+export default CustomerOrders;

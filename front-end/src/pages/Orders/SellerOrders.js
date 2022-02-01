@@ -21,7 +21,7 @@ const arraySize = 6;
 
 const panels = Array(arraySize).fill();
 
-function OrdersSellers() {
+function SellerOrders() {
   // const [orders, setOrders] = useState([]);
   // Renderiza os pedidos do usuário
   // ao entrar no endpoint dos Meus Pedidos
@@ -42,4 +42,4 @@ function OrdersSellers() {
   );
 }
 
-export default OrdersSellers;
+export default SellerOrders;

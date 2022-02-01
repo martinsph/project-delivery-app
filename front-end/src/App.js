@@ -6,8 +6,8 @@ import Product from './pages/Products';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import DetailsCustomer from './pages/Details/DetailsOrderCustomer';
-import OrdersCustomer from './pages/Orders/OrdersCustomers';
-import OrdersSellers from './pages/Orders/OrdersSellers';
+import CustomerOrders from './pages/Orders/CustomerOrders';
+import SellerOrders from './pages/Orders/SellerOrders';
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
         <Route path="/admin/manage" element={ <Admin /> } />
         <Route path="/checkout" element={ <Checkout /> } />
         <Route path="/details/customer" element={ <DetailsCustomer /> } />
-        <Route path="/orders/customer" element={ <OrdersCustomer /> } />
-        <Route path="/orders/seller" element={ <OrdersSellers /> } />
+        <Route path="/orders/customer" element={ <CustomerOrders /> } />
+        <Route path="/orders/seller" element={ <SellerOrders /> } />
       </Routes>
     </BrowserRouter>
   );
