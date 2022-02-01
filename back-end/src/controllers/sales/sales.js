@@ -2,10 +2,11 @@ const serviceSales = require('../../services/sales');
 
 const createSale = async (req, res, next) => {
   try {
-    const { totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
+    const { products, totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
     } = req.body;
 
     const result = await serviceSales({
+      products,
       totalPrice,
       deliveryAddress,
       deliveryNumber,

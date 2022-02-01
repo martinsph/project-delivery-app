@@ -1,22 +1,22 @@
-const { sale } = require('../database/models');
+const { sale, salesProduct } = require('../database/models');
 
 const sales = async (newsaleInfo) => {
   const {
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    userId,
-    sellerId,
+    products, totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
   } = newsaleInfo;
 
-  console.log(newsaleInfo);
-
   const newSale = await sale.create({
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    userId,
-    sellerId,
+    totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
+  });
+
+  const { id: saleId } = newSale;
+
+  await products.forEach(async (product) => {
+    await salesProduct.create({
+      productId: product.id,
+      saleId,
+      quantity: product.quantity,
+    });
   });
 
   return newSale;
