@@ -9,6 +9,8 @@ const sales = async (newsaleInfo) => {
     sellerId,
   } = newsaleInfo;
 
+  console.log(newsaleInfo);
+
   const newSale = await sale.create({
     totalPrice,
     deliveryAddress,
@@ -16,8 +18,6 @@ const sales = async (newsaleInfo) => {
     userId,
     sellerId,
   });
-
-  console.log(newSale);
 
   return newSale;
 };

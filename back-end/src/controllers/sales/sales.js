@@ -4,6 +4,7 @@ const createSale = async (req, res, next) => {
   try {
     const { totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
     } = req.body;
+
     const result = await serviceSales({
       totalPrice,
       deliveryAddress,
