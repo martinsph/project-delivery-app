@@ -29,11 +29,24 @@ export const Button = styled.button`
   padding: 6px;
   background-color: #036B52;
   color: #F2FFFC;
+  border: none;
+  box-shadow: 0 8px 4px -4px #00000050;
   border-radius: 6px;
   margin: auto;
   margin-top: 30px;
   height: 40px;
+  font-weight: bold;
   align-items: center;
+  transition: 100ms;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0;
+  }
 `;
 
 export const Input = styled.input`
