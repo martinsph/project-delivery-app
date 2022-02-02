@@ -29,4 +29,11 @@ const getSaleById = async (id) => {
   return getSale;
 };
 
-module.exports = { createSale, getSaleById };
+const getSalesByUserId = async (userId) => {
+  const getSale = await sale.findAll({ where: { userId }, attributes: { 
+    exclude: ['deliveryAddress','deliveryNumber','userId', 'sellerId'] } });
+  
+  return getSale;
+};
+
+module.exports = { createSale, getSaleById, getSalesByUserId };
