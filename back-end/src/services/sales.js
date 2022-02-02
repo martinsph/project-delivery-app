@@ -5,11 +5,11 @@ const createSale = async (newsaleInfo) => {
 
   const newSale = await sale.create(newsaleInfo);
 
-  await products.forEach(async (product) => {
+  await products.forEach(async (productInfo) => {
     await salesProduct.create({
-      productId: product.id,
+      productId: productInfo.id,
       saleId: newSale.id,
-      quantity: product.quantity,
+      quantity: productInfo.quantity,
     });
   });
 
@@ -22,8 +22,9 @@ const getSaleById = async (id) => {
     include: [
       { model: user, as: 'seller', attributes: { exclude: ['password'] } },
       { model: product, as: 'products', through: { attributes: ['quantity'] } },
-    ]
-  });
+    ],
+  },
+  );
   
   return getSale;
 };
