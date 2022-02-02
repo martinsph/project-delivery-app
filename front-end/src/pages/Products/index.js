@@ -11,17 +11,20 @@ import {
   Cart,
 } from './styles';
 
-const CARDS_COUNT = 11;
-const MAX = 90;
-const MIN = 10;
+// const CARDS_COUNT = 11;
+// const MAX = 90;
+// const MIN = 10;
 
 const Products = () => {
-  // const [itemCount, setItemCount] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsloading] = useState(true);
 
-  const handleCount = (e) => {
-    console.log(e.target.value);
+  const handleQuantity = ({ target }) => {
+    // const id = target.dataset.testid;
+    const valueQuantity = Number(target.value);
+    setQuantity(valueQuantity);
   };
 
   useEffect(() => {
@@ -73,8 +76,8 @@ const Products = () => {
                   <Input
                     data-testid={ `customer_products__input-card-quantity-${id + 1}` }
                     type="number"
-                    min="0"
-                    onChange={ handleCount }
+                    min="1"
+                    onChange={ handleQuantity }
                   />
                 </form>
               </div>
@@ -84,7 +87,7 @@ const Products = () => {
       </CardsContainer>
       <Cart data-testid="customer_products__checkout-bottom-value">
         <span>
-          { `Ver carrinho: R$ ${Math.floor(Math.random() * MAX) + MIN}` }
+          { `Ver carrinho: R$ ${quantity}` }
         </span>
       </Cart>
     </Container>
