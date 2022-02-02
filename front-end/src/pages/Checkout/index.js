@@ -24,7 +24,6 @@ export const ContainerSection = styled.div`
 export const ContainerSectionSuperior = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid;
   box-shadow: 0 2px 4px #00000040;
   margin-bottom: 30px;
   & span {
@@ -35,7 +34,6 @@ export const ContainerSectionSuperior = styled.div`
 export const ContainerSectionInferior = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid;
   box-shadow: 0 2px 4px #00000040;
 `;
 
@@ -55,7 +53,7 @@ function CustomerCheckout() {
         <h2>Finalizar Pedido</h2>
         <ContainerSectionSuperior>
           <CheckoutItems />
-          <Span data-testid="customer_checkout">Total</Span>
+          <Span data-testid="customer_checkout__element-order-total-price">Total</Span>
         </ContainerSectionSuperior>
         <h2>Detalhes e Endereço para Entrega</h2>
         <ContainerSectionInferior>
