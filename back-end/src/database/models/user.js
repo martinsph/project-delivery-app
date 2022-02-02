@@ -5,7 +5,12 @@ const user = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     role: DataTypes.STRING,
   },
-  { timestamps: false });
+  { timestamps: false, underscored: true });
+  user.associate = (model) => {
+    user.hasMany(model.sale,
+      { foreingKey: 'user_id', as: 'user' },
+      { foreingKey: 'seller_id', as: 'seller' });
+  }
 
   return user;
 };
