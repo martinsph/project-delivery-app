@@ -53,24 +53,24 @@ const Products = () => {
         {
           products.map(({ id, name, price, url_image: urlImage }) => (
             <Card key={ id }>
-              <Span data-testid={ `customer_products__element-card-price-${id + 1}` }>
+              <Span data-testid={ `customer_products__element-card-price-${id}` }>
                 <strong>
-                  { price }
+                  { price.replace('.', ',') }
                 </strong>
               </Span>
               <Image
                 src={ urlImage }
-                data-testid={ `customer_products__img-card-bg-image-${id + 1}` }
+                data-testid={ `customer_products__img-card-bg-image-${id}` }
               />
               <div>
                 <h4
-                  data-testid={ `customer_products__element-card-title-${id + 1}` }
+                  data-testid={ `customer_products__element-card-title-${id}` }
                 >
                   { name }
                 </h4>
                 <form>
                   <Input
-                    data-testid={ `customer_products__input-card-quantity-${id + 1}` }
+                    data-testid={ `customer_products__input-card-quantity-${id}` }
                     type="number"
                     min="1"
                     onChange={ handleQuantity }
