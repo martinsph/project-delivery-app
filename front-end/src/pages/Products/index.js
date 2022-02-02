@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
+import ProductInput from './ProductsInput';
 import {
   Container,
   CardsContainer,
   Card,
   Image,
-  Input,
+  // Input,
   Span,
   Cart,
 } from './styles';
 
 const Products = () => {
-  const [quantity, setQuantity] = useState(0);
+  // const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState([]);
   // const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsloading] = useState(true);
 
-  const handleQuantity = ({ target }) => {
-    // const id = target.dataset.testid;
-    const valueQuantity = Number(target.value);
-    setQuantity(valueQuantity);
-  };
+  // const handleQuantity = ({ target }) => {
+  //   // const id = target.dataset.testid;
+  //   const valueQuantity = Number(target.value);
+  //   setQuantity(valueQuantity);
+  // };
+  // handleQuantity();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -69,12 +71,13 @@ const Products = () => {
                   { name }
                 </h4>
                 <form>
-                  <Input
+                  {/* <Input
                     data-testid={ `customer_products__input-card-quantity-${id}` }
                     type="number"
                     min="1"
                     onChange={ handleQuantity }
-                  />
+                  /> */}
+                  <ProductInput id={ id } />
                 </form>
               </div>
             </Card>
@@ -83,7 +86,7 @@ const Products = () => {
       </CardsContainer>
       <Cart data-testid="customer_products__checkout-bottom-value">
         <span>
-          { `Ver carrinho: R$ ${quantity}` }
+          { `Ver carrinho: R$ ${0}` }
         </span>
       </Cart>
     </Container>

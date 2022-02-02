@@ -92,6 +92,7 @@ const NavbarComponent = ({ userRole }) => {
       <button
         type="button"
         onClick={ handleLogout }
+        data-testid="customer_products__element-navbar-link-logout"
       >
         Sair
       </button>
