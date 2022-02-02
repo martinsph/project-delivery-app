@@ -50,13 +50,16 @@ export const Button = styled.button`
 `;
 
 export const Input = styled.input`
+  border: 1px solid #aaa;
   border-radius: 4px;
-  height: 40px;
+  padding: 8px 8px;
 `;
 
 export const Select = styled.select`
+  border: 1px solid #aaa;
   border-radius: 4px;
-  height: 40px;
+  font-size: 1.1rem;
+  padding: 4px 8px;
 `;
 
 function CheckoutDelivery() {
