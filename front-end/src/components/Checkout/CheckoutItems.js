@@ -1,43 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-export const Td = styled.td`
-  text-align: center;
-  padding: 6px;
-
-  &:nth-child(1) {
-    background-color: #2FC18C;
-    border-radius: 6px 0 0 6px;
-  }
-  &:nth-child(2) {
-    background-color: #EBF1EF;
-  }
-  &:nth-child(3) {
-    background-color: #036B52;
-    color: #F2FFFC;
-  }
-  &:nth-child(4) {
-    background-color: #421981;
-    color: #F2FFFC;
-  }
-  &:nth-child(5) {
-    background-color: #056DF9;
-    color: #F2FFFC;
-  }
-  &:nth-child(6) {
-    background-color: #2FC18C;
-    border-radius: 0 6px 6px 0;
-    color: #F2FFFC;
-  }
-`;
-
-export const Table = styled.table`
-
-`;
-
-export const Th = styled.th`
-  font-family: 'Nunito', sans-serif;
-`;
+import { Td, Table, Th } from './styles';
 
 function CheckoutItems() {
   // data mock
