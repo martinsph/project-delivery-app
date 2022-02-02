@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
+import { useState } from 'react/cjs/react.development';
 
 const Header = styled.header`
   display: flex;
@@ -71,21 +72,30 @@ const renderUserType = (role) => {
 };
 
 const NavbarComponent = ({ userRole }) => {
-  console.log('');
+  const dataUser = JSON.parse(localStorage.getItem('data'));
+  const { name: username } = dataUser;
+  const [logout, setLogout] = useState(false);
+
+  const handleLogout = () => {
+    setLogout(true);
+    localStorage.removeItem('data');
+  };
   return (
     <Header>
       <nav>{ renderUserType(userRole) }</nav>
       <h3
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        Usuario
+        { username }
       </h3>
-      <Link
-        data-testid=""
-        to="/products"
+
+      <button
+        type="button"
+        onClick={ handleLogout }
       >
         Sair
-      </Link>
+      </button>
+      { logout && <Navigate to="/" /> }
     </Header>
   );
 };

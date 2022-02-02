@@ -11,10 +11,6 @@ import {
   Cart,
 } from './styles';
 
-// const CARDS_COUNT = 11;
-// const MAX = 90;
-// const MIN = 10;
-
 const Products = () => {
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState([]);

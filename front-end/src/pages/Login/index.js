@@ -18,8 +18,10 @@ function Login() {
     const data = JSON.stringify({ email, password });
     const route = 'login';
     const register = await registerUser(data, route);
-    console.log(register);
-    if (register.token) return setRedirectLogin(true);
+    if (register.token) {
+      localStorage.setItem('data', JSON.stringify(register));
+      return setRedirectLogin(true);
+    }
     if (register.message) return setErrorMessage(register.message);
   };
 
