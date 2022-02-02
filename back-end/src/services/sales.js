@@ -30,8 +30,8 @@ const getSaleById = async (id) => {
 };
 
 const getSalesByUserId = async (userId) => {
-  const getSale = await sale.findAll({ where: { userId }, attributes: { 
-    exclude: ['deliveryAddress','deliveryNumber','userId', 'sellerId'] } });
+  const getSale = await sale.findAll({ where: { userId }, 
+    attributes: { exclude: ['deliveryAddress', 'deliveryNumber', 'userId', 'sellerId'] } });
   
   return getSale;
 };
