@@ -1,19 +1,32 @@
-const { sale, salesProduct } = require('../database/models');
+const { sale, salesProduct, user, product } = require('../database/models');
 
-const sales = async (newsaleInfo) => {
+const createSale = async (newsaleInfo) => {
   const { products } = newsaleInfo;
 
   const newSale = await sale.create(newsaleInfo);
 
-  await products.forEach(async (product) => {
+  await products.forEach(async (productInfo) => {
     await salesProduct.create({
-      productId: product.id,
+      productId: productInfo.id,
       saleId: newSale.id,
-      quantity: product.quantity,
+      quantity: productInfo.quantity,
     });
   });
 
   return newSale;
 };
 
-module.exports = sales;
+const getSaleById = async (id) => {
+  const getSale = await sale.findByPk(
+    id, {
+    include: [
+      { model: user, as: 'seller', attributes: { exclude: ['password'] } },
+      { model: product, as: 'products', through: { attributes: ['quantity'] } },
+    ],
+  },
+  );
+  
+  return getSale;
+};
+
+module.exports = { createSale, getSaleById };
