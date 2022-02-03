@@ -13,17 +13,16 @@ import {
 } from './styles';
 
 const Products = () => {
-  // const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState([]);
   // const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsloading] = useState(true);
 
-  // const handleQuantity = ({ target }) => {
-  //   // const id = target.dataset.testid;
-  //   const valueQuantity = Number(target.value);
-  //   setQuantity(valueQuantity);
-  // };
-  // handleQuantity();
+  const handleQuantity = ({ target }) => {
+    // const id = target.dataset.testid;
+    const valueQuantity = Number(target.value);
+    setQuantity(valueQuantity);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -86,7 +85,7 @@ const Products = () => {
       </CardsContainer>
       <Cart data-testid="customer_products__checkout-bottom-value">
         <span>
-          { `Ver carrinho: R$ ${0}` }
+          { `Ver carrinho: R$ ${quantity}` }
         </span>
       </Cart>
     </Container>
