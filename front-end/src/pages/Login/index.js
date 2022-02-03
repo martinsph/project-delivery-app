@@ -19,7 +19,7 @@ function Login() {
     const route = 'login';
     const register = await registerUser(data, route);
     if (register.token) {
-      localStorage.setItem('data', JSON.stringify(register));
+      localStorage.setItem('user', JSON.stringify(register));
       return setRedirectLogin(true);
     }
     if (register.message) return setErrorMessage(register.message);

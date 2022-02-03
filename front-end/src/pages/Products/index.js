@@ -18,12 +18,11 @@ const Products = () => {
   // const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsloading] = useState(true);
 
-  const handleQuantity = ({ target }) => {
-    // const id = target.dataset.testid;
-    const valueQuantity = Number(target.value);
-    setQuantity(valueQuantity);
-  };
-
+  // const handleQuantity = ({ target }) => {
+  //   // const id = target.dataset.testid;
+  //   const valueQuantity = Number(target.value);
+  //   setQuantity(valueQuantity);
+  // };
   useEffect(() => {
     const fetchProducts = async () => {
       const url = 'http://localhost:3001/products';
@@ -43,6 +42,7 @@ const Products = () => {
         return error;
       }
     };
+    setQuantity(1);
     fetchProducts();
   }, []);
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { useState } from 'react/cjs/react.development';
+// import { useState } from 'react/cjs/react.development';
 
 const Header = styled.header`
   display: flex;
@@ -72,13 +72,15 @@ const renderUserType = (role) => {
 };
 
 const NavbarComponent = ({ userRole }) => {
-  const dataUser = JSON.parse(localStorage.getItem('data'));
+  const dataUser = JSON.parse(localStorage.getItem('user'));
   const { name: username } = dataUser;
-  const [logout, setLogout] = useState(false);
+  /* const [logout, setLogout] = useState(false); */
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    setLogout(true);
-    localStorage.removeItem('data');
+    /* setLogout(true); */
+    localStorage.removeItem('user');
+    navigate('/');
   };
   return (
     <Header>
@@ -96,7 +98,6 @@ const NavbarComponent = ({ userRole }) => {
       >
         Sair
       </button>
-      { logout && <Navigate to="/" /> }
     </Header>
   );
 };
