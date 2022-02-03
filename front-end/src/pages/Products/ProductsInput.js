@@ -27,37 +27,39 @@ const ControlsContainer = styled.div`
   }
 `;
 
-localStorage.setItem('cart', JSON.stringify({}));
-
-const ProductInput = ({ id }) => {
+const ProductInput = ({ id, updateCart }) => {
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState('');
   const [price, setPrice] = useState(0);
 
-  const saveToLocalStorage = (cart) => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
   const handleProductQuantity = (e) => {
     const text = e.target.id;
     if (quantity === 0 && text === 'decrement') return;
-    const cart = JSON.parse(localStorage.getItem('cart'));
-
+    
     // Todo: Refatorar esse monstro depois
     const productName = e.target.parentNode.parentNode.parentNode.firstChild.innerText;
     const productPrice = e.target.parentNode.parentNode.parentNode.parentNode.firstChild.innerText;
-
+    
     setProduct(productName);
     setPrice(parseFloat(productPrice.replace(',', '.')));
     setQuantity(text === 'increment' ? quantity + 1 : quantity - 1);
-    console.log("Cheguei", product, price);
-    cart[id] = { product, quantity, price };
-    saveToLocalStorage(cart);
   };
-
+  
   useEffect(() => {
-    console.log(1);
-  });
+    const cart = JSON.parse(localStorage.getItem('cart'));
+
+    /*
+      Todo: Impedir criação do cart no localStorage
+      Todo: se o cart já estiver criado e populado
+    */
+    if (!cart) {
+      localStorage.setItem('cart', JSON.stringify({}));
+    }
+
+    cart[id] = { product, quantity, price };
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+  }, [product, quantity, price]);
 
   return (
     <ControlsContainer>

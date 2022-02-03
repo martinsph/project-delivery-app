@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
@@ -8,7 +9,6 @@ import {
   CardsContainer,
   Card,
   Image,
-  // Input,
   Span,
   Cart,
 } from './styles';
@@ -26,16 +26,11 @@ const Loading = styled.div`
 `;
 
 const Products = () => {
-  const [quantity, setQuantity] = useState(0);
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  // const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const handleQuantity = ({ target }) => {
-  //   // const id = target.dataset.testid;
-  //   const valueQuantity = Number(target.value);
-  //   setQuantity(valueQuantity);
-  // };
   useEffect(() => {
     const fetchProducts = async () => {
       const url = 'http://localhost:3001/products';
@@ -55,9 +50,21 @@ const Products = () => {
       }
       setIsLoading(false);
     };
-    setQuantity(1);
     fetchProducts();
   }, []);
+
+  const updateCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    const total = Object.values(cart).reduce((subtotal, { quantity, price }) => {
+      subtotal += (quantity * price);
+      return subtotal;
+    }, 0);
+    setTotalPrice(total)
+  };
+
+  const redirectUser = () => {
+    navigate('/customer/checkout');
+  };
 
   if (isLoading) return <Loading />;
   return (
@@ -83,16 +90,19 @@ const Products = () => {
                   { name }
                 </h4>
                 <form>
-                  <ProductInput id={ id } />
+                  <ProductInput id={ id } updateCart={ updateCart }/>
                 </form>
               </div>
             </Card>
           ))
         }
       </CardsContainer>
-      <Cart data-testid="customer_products__checkout-bottom-value">
+      <Cart
+        onClick={ redirectUser }
+        data-testid="customer_products__checkout-bottom-value"
+      >
         <span>
-          { `Ver carrinho: R$ ${quantity}` }
+          { `Ver carrinho: R$ ${totalPrice.toFixed(2)}` }
         </span>
       </Cart>
     </Container>

@@ -20,7 +20,7 @@ function App() {
         <Route path="/customer/products" element={ <Product /> } />
         <Route path="/products" element={ <Product /> } />
         <Route path="/admin/manage" element={ <Admin /> } />
-        <Route path="/checkout" element={ <Checkout /> } />
+        <Route path="/customer/checkout" element={ <Checkout /> } />
         <Route path="/details/customer" element={ <DetailsCustomer /> } />
         <Route path="/details/seller" element={ <DetailsSeller /> } />
         <Route path="/customer/orders" element={ <CustomerOrders /> } />
