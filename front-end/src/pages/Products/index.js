@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Loading from '../../components/Loading';
+import styled from 'styled-components';
+// import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import ProductInput from './ProductsInput';
 import {
@@ -12,11 +13,23 @@ import {
   Cart,
 } from './styles';
 
+const Loading = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  border: 3px solid skyblue;
+  border-left-color: transparent;
+  border-radius: 50%;
+  background: red;
+  z-index: 10;
+`;
+
 const Products = () => {
   const [quantity, setQuantity] = useState(0);
   const [products, setProducts] = useState([]);
   // const [totalPrice, setTotalPrice] = useState(0);
-  const [isLoading, setIsloading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // const handleQuantity = ({ target }) => {
   //   // const id = target.dataset.testid;
@@ -32,15 +45,15 @@ const Products = () => {
           'Content-Type': 'application/json',
         },
       };
+      setIsLoading(true);
       try {
         const result = await fetch(url, config);
         const resultMessage = await result.json();
         setProducts(resultMessage);
-        setIsloading(false);
-        return resultMessage;
       } catch (error) {
-        return error;
+        console.log(err);
       }
+      setIsLoading(false);
     };
     setQuantity(1);
     fetchProducts();
@@ -70,12 +83,6 @@ const Products = () => {
                   { name }
                 </h4>
                 <form>
-                  {/* <Input
-                    data-testid={ `customer_products__input-card-quantity-${id}` }
-                    type="number"
-                    min="1"
-                    onChange={ handleQuantity }
-                  /> */}
                   <ProductInput id={ id } />
                 </form>
               </div>
