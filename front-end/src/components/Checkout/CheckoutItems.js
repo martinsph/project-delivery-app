@@ -89,7 +89,9 @@ function CheckoutItems() {
               // para acessá-lo
               <tr key={ i }>
                 <Td
-                  data-testid={ `customer_checkout__element-order-table-item-number-${i + 1}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-item-number-${i + 1}`
+                  }
                 >
                   { i + 1 }
                 </Td>
@@ -99,17 +101,23 @@ function CheckoutItems() {
                   { product }
                 </Td>
                 <Td
-                  data-testid={ `customer_checkout__element-order-table-quantity-${i + 1}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-quantity-${i + 1}`
+                  }
                 >
                   { quantity }
                 </Td>
                 <Td
-                  data-testid={ `customer_checkout__element-order-table-unit-price-${i + 1}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-unit-price-${i + 1}`
+                  }
                 >
                   { unitPrice }
                 </Td>
                 <Td
-                  data-testid={ `customer_checkout__element-order-table-sub-total-${i + 1}` }
+                  data-testid={
+                    `customer_checkout__element-order-table-sub-total-${i + 1}`
+                  }
                 >
                   { subTotal }
                 </Td>
