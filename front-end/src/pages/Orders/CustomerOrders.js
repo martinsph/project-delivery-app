@@ -1,22 +1,8 @@
 import React, { useEffect } from 'react';
-// import React from 'react';
-import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
 import Panel from '../../components/Orders';
+import { Page, Container } from './styles';
 
-export const Page = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  margin: auto;
-  flex-wrap: wrap;
-  max-width: 1080px;
-  margin-top: 30px;
-  gap: 20px 40px;
-`;
 const arraySize = 6;
 
 const panels = Array(arraySize).fill();
