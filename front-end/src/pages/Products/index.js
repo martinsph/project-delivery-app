@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-// import Loading from '../../components/Loading';
+import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import ProductInput from './ProductsInput';
 import {
@@ -12,18 +12,6 @@ import {
   Span,
   Cart,
 } from './styles';
-
-const Loading = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%);
-  border: 3px solid skyblue;
-  border-left-color: transparent;
-  border-radius: 50%;
-  background: red;
-  z-index: 10;
-`;
 
 const Products = () => {
   const navigate = useNavigate();
@@ -55,10 +43,8 @@ const Products = () => {
 
   const updateCart = () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    const total = Object.values(cart).reduce((subtotal, { quantity, price }) => {
-      subtotal += (quantity * price);
-      return subtotal;
-    }, 0);
+    const total = Object.values(cart)
+      .reduce((subtotal, { quantity, price }) => subtotal + (quantity * price), 0);
     setTotalPrice(total)
   };
 
@@ -67,6 +53,7 @@ const Products = () => {
   };
 
   if (isLoading) return <Loading />;
+
   return (
     <Container>
       <NavBar userRole="user" />
