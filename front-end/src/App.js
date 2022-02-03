@@ -23,8 +23,8 @@ function App() {
         <Route path="/checkout" element={ <Checkout /> } />
         <Route path="/details/customer" element={ <DetailsCustomer /> } />
         <Route path="/details/seller" element={ <DetailsSeller /> } />
-        <Route path="/orders/customer" element={ <CustomerOrders /> } />
-        <Route path="/orders/seller" element={ <SellerOrders /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
+        <Route path="/seller/orders" element={ <SellerOrders /> } />
       </Routes>
     </BrowserRouter>
   );
