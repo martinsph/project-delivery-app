@@ -7,10 +7,10 @@ const renderUserType = (role) => {
   if (role === 'customer') {
     return (
       <>
-        <Link to="/products">Produtos</Link>
+        <Link to="/customer/products">Produtos</Link>
         <Link
           data-testid="customer_products__element-navbar-link-orders"
-          to="/products"
+          to="/customer/orders"
         >
           Meus Pedidos
         </Link>
