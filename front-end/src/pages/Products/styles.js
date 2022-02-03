@@ -8,13 +8,18 @@ export const Container = styled.div`
 
 export const CardsContainer = styled.div`
   position: relative;
-  // border: 1px solid;
   justify-content: center;
   margin: auto;
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 40px;
   display: flex;
+`;
+
+export const Image = styled.img`
+  // height: 200px;
+  object-fit: fill;
+  // flex: 1;
 `;
 
 export const Card = styled.div`
@@ -27,20 +32,23 @@ export const Card = styled.div`
   overflow: hidden;
   position: relative;
 
-  & div {
+  & > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
     background-color: #EAF1EF;
-    padding: 20px;
-    padding-top: 10px;
+    // padding: 20px;
+    // padding-top: 10px;
     text-align: center;
   }
-`;
 
-export const Image = styled.img`
-  flex: 1;
-`;
-
-export const Input = styled.input`
-  width: 40px;
+  // Gambiarra pq a primeira imagem do
+  // card tá zoada e não sei pq
+  &:first-of-type img {
+    object-fit: scale-down;
+    height: 218px;
+  }
 `;
 
 export const Span = styled.span`

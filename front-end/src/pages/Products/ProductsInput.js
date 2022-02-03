@@ -2,12 +2,15 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+
+// Todo: Remover styles do presente arquivo
 const Span = styled.span`
   background: lightblue;
   padding: 4px 12px;
   font-weight: bold;
 `;
 
+// Todo: Remover styles do presente arquivo
 const ControlsContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -37,8 +40,10 @@ const ProductInput = ({ id, updateCart }) => {
     if (quantity === 0 && text === 'decrement') return;
     
     // Todo: Refatorar esse monstro depois
-    const productName = e.target.parentNode.parentNode.parentNode.firstChild.innerText;
-    const productPrice = e.target.parentNode.parentNode.parentNode.parentNode.firstChild.innerText;
+    const productName =
+      e.target.parentNode.parentNode.parentNode.firstChild.innerText;
+    const productPrice =
+      e.target.parentNode.parentNode.parentNode.parentNode.firstChild.innerText;
     
     setProduct(productName);
     setPrice(parseFloat(productPrice.replace(',', '.')));
@@ -46,18 +51,21 @@ const ProductInput = ({ id, updateCart }) => {
   };
   
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-
     /*
-      Todo: Impedir criação do cart no localStorage
-      Todo: se o cart já estiver criado e populado
+    Todo: Impedir criação do cart no localStorage
+    Todo: se o cart já estiver criado e populado
     */
-    if (!cart) {
-      localStorage.setItem('cart', JSON.stringify({}));
+   if (!localStorage.getItem('cart')) {
+     localStorage.setItem('cart', JSON.stringify({}));
     }
-
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    
     cart[id] = { product, quantity, price };
     localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Toda vez que esse componente sofre uma ação
+    // Através do handleProductQuantity, a função abaixo
+    // É disparada no elemento pai
     updateCart();
   }, [product, quantity, price]);
 
