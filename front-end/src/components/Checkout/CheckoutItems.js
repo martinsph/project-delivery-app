@@ -58,46 +58,43 @@ function CheckoutItems() {
       </thead>
       <tbody>
         {
-          cart.map((items, i) => {
-            const { product, quantity, price } = items;
-            return (
-              // Todo: Armazenar todos os data-testids em um objeto
-              // importá-lo onde for necessário e passar apenas sua key
-              // para acessá-lo
-              <tr key={ i }>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-item-number-${i + 1}` }
-                >
-                  { i + 1 }
-                </Td>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-name-${i + 1}` }
-                >
-                  { product }
-                </Td>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-quantity-${i + 1}` }
-                >
-                  { quantity }
-                </Td>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-unit-price-${i + 1}` }
-                >
-                  { price }
-                </Td>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-sub-total-${i + 1}` }
-                >
-                  { (quantity * price).toFixed(2) }
-                </Td>
-                <Td
-                  data-testid={ `customer_checkout__element-order-table-remove-${i + 1}` }
-                >
-                  Remover
-                </Td>
-              </tr>
-            );
-          })
+          cart.map(({ product, quantity, price }, i) => (
+            // Todo: Armazenar todos os data-testids em um objeto
+            // importá-lo onde for necessário e passar apenas sua key
+            // para acessá-lo
+            <tr key={ i }>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-item-number-${i + 1}` }
+              >
+                { i + 1 }
+              </Td>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-name-${i + 1}` }
+              >
+                { product }
+              </Td>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-quantity-${i + 1}` }
+              >
+                { quantity }
+              </Td>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-unit-price-${i + 1}` }
+              >
+                { price }
+              </Td>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-sub-total-${i + 1}` }
+              >
+                { (quantity * price).toFixed(2) }
+              </Td>
+              <Td
+                data-testid={ `customer_checkout__element-order-table-remove-${i + 1}` }
+              >
+                Remover
+              </Td>
+            </tr>
+          ))
         }
       </tbody>
     </Table>

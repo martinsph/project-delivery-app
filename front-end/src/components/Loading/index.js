@@ -27,12 +27,10 @@ const Spinner = styled.div`
   }
 `;
 
-const Loading = () => {
-  return (
-    <SpinnerContainer>
-      <Spinner />
-    </SpinnerContainer>
-  );
-}
+const Loading = () => (
+  <SpinnerContainer>
+    <Spinner />
+  </SpinnerContainer>
+);
 
 export default Loading;

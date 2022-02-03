@@ -12,7 +12,7 @@ import { Page,
 function CustomerCheckout() {
   return (
     <Page>
-      <NavBar />
+      <NavBar userRole="customer" />
       <ContainerSection>
         <h2>Finalizar Pedido</h2>
         <ContainerSectionSuperior>

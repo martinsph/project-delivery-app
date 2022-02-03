@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-
 // Todo: Remover styles do presente arquivo
 const Span = styled.span`
   background: lightblue;
@@ -38,28 +37,23 @@ const ProductInput = ({ id, updateCart }) => {
   const handleProductQuantity = (e) => {
     const text = e.target.id;
     if (quantity === 0 && text === 'decrement') return;
-    
+
     // Todo: Refatorar esse monstro depois
-    const productName =
-      e.target.parentNode.parentNode.parentNode.firstChild.innerText;
-    const productPrice =
-      e.target.parentNode.parentNode.parentNode.parentNode.firstChild.innerText;
-    
+    const productName = e.target.parentNode
+      .parentNode.parentNode.firstChild.innerText;
+    const productPrice = e.target.parentNode
+      .parentNode.parentNode.parentNode.firstChild.innerText;
+
     setProduct(productName);
     setPrice(parseFloat(productPrice.replace(',', '.')));
     setQuantity(text === 'increment' ? quantity + 1 : quantity - 1);
   };
-  
+
   useEffect(() => {
-    /*
-    Todo: Impedir criação do cart no localStorage
-    Todo: se o cart já estiver criado e populado
-    */
-   if (!localStorage.getItem('cart')) {
-     localStorage.setItem('cart', JSON.stringify({}));
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem('cart', JSON.stringify({}));
     }
     const cart = JSON.parse(localStorage.getItem('cart'));
-    
     cart[id] = { product, quantity, price };
     localStorage.setItem('cart', JSON.stringify(cart));
 
@@ -101,3 +95,7 @@ ProductInput.propTypes = {
 };
 
 export default ProductInput;
+
+ProductInput.propTypes = {
+  updateCart: PropTypes.objectOf(PropTypes.object).isRequired,
+};

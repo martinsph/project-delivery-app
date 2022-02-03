@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Header from './styles';
 
 const renderUserType = (role) => {
-  if (role === 'user') {
+  if (role === 'customer') {
     return (
       <>
         <Link to="/products">Produtos</Link>

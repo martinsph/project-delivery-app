@@ -44,7 +44,7 @@ const Products = () => {
     const cart = JSON.parse(localStorage.getItem('cart'));
     const total = Object.values(cart)
       .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
-    setTotalPrice(total)
+    setTotalPrice(total);
   };
 
   const redirectUser = () => {
@@ -55,7 +55,7 @@ const Products = () => {
 
   return (
     <Container>
-      <NavBar userRole="user" />
+      <NavBar userRole="customer" />
       <CardsContainer>
         {
           products.map(({ id, name, price, url_image: urlImage }) => (
@@ -76,7 +76,7 @@ const Products = () => {
                   { name }
                 </h4>
                 <form>
-                  <ProductInput id={ id } updateCart={ updateCart }/>
+                  <ProductInput id={ id } updateCart={ updateCart } />
                 </form>
               </div>
             </Card>
