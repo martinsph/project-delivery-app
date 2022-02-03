@@ -26,6 +26,8 @@ const AdminForm = () => {
 
   const getUserInfo = async (e) => {
     e.preventDefault();
+    const authorization = JSON
+      .parse(localStorage.getItem('user')).token;
     const payload = { name, email, password, role };
     try {
       await fetch('http://localhost:3001/register', {
@@ -33,6 +35,7 @@ const AdminForm = () => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          authorization
         },
         body: JSON.stringify(payload),
       });
