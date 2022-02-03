@@ -40,32 +40,9 @@ export const Th = styled.th`
 `;
 
 function CheckoutItems() {
-  // data mock
-  const payload = [
-    {
-      product: 'Heineken',
-      quantity: 5,
-      unitPrice: 'R$ 5.69',
-      subTotal: 'R$ 28.45',
-    },
-    {
-      product: 'Heineken',
-      quantity: 5,
-      unitPrice: 'R$ 5.69',
-      subTotal: 'R$ 28.45',
-    },
-    {
-      product: 'Heineken',
-      quantity: 5,
-      unitPrice: 'R$ 5.69',
-      subTotal: 'R$ 28.45',
-    },
-  ];
-
-  // mimicking product page
-  localStorage.setItem('cart', JSON.stringify(payload));
   // getting cart products
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = Object.values(JSON.parse(localStorage.getItem('cart')))
+    .filter(({ quantity }) => quantity);
 
   return (
     <Table>
@@ -82,7 +59,7 @@ function CheckoutItems() {
       <tbody>
         {
           cart.map((items, i) => {
-            const { product, quantity, unitPrice, subTotal } = items;
+            const { product, quantity, price } = items;
             return (
               // Todo: Armazenar todos os data-testids em um objeto
               // importá-lo onde for necessário e passar apenas sua key
@@ -106,12 +83,12 @@ function CheckoutItems() {
                 <Td
                   data-testid={ `customer_checkout__element-order-table-unit-price-${i + 1}` }
                 >
-                  { unitPrice }
+                  { price }
                 </Td>
                 <Td
                   data-testid={ `customer_checkout__element-order-table-sub-total-${i + 1}` }
                 >
-                  { subTotal }
+                  { (quantity * price).toFixed(2) }
                 </Td>
                 <Td
                   data-testid={ `customer_checkout__element-order-table-remove-${i + 1}` }
