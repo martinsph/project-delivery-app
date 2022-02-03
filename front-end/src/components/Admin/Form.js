@@ -6,7 +6,7 @@ const AdminForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('customer');
 
   const handleChange = (e) => {
     const field = e.target.id;
@@ -21,7 +21,7 @@ const AdminForm = () => {
     setName('');
     setEmail('');
     setPassword('');
-    setRole('user');
+    setRole('customer');
   };
 
   const getUserInfo = async (e) => {
@@ -82,13 +82,18 @@ const AdminForm = () => {
           id="role"
           onChange={ handleChange }
         >
-          <option value="user">Usuário</option>
+          <option value="customer">Usuário</option>
           <option value="seller">Vendedor</option>
         </select>
       </label>
       <Button
         data-testid="admin_manage__button-register"
         onClick={ getUserInfo }
+        disabled={
+          !(/.{12,}/.test(name)
+          && /.{6,}/.test(password)
+          && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+        }
       >
         Cadastrar
       </Button>
