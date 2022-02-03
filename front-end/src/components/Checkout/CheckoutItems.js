@@ -1,5 +1,43 @@
 import React from 'react';
-import { Td, Table, Th } from './styles';
+import styled from 'styled-components';
+
+export const Td = styled.td`
+  text-align: center;
+  padding: 6px;
+
+  &:nth-child(1) {
+    background-color: #2FC18C;
+    border-radius: 6px 0 0 6px;
+  }
+  &:nth-child(2) {
+    background-color: #EBF1EF;
+  }
+  &:nth-child(3) {
+    background-color: #036B52;
+    color: #F2FFFC;
+  }
+  &:nth-child(4) {
+    background-color: #421981;
+    color: #F2FFFC;
+  }
+  &:nth-child(5) {
+    background-color: #056DF9;
+    color: #F2FFFC;
+  }
+  &:nth-child(6) {
+    background-color: #2FC18C;
+    border-radius: 0 6px 6px 0;
+    color: #F2FFFC;
+  }
+`;
+
+export const Table = styled.table`
+
+`;
+
+export const Th = styled.th`
+  font-family: 'Nunito', sans-serif;
+`;
 
 function CheckoutItems() {
   // data mock
@@ -51,9 +89,7 @@ function CheckoutItems() {
               // para acessá-lo
               <tr key={ i }>
                 <Td
-                  data-testid={
-                    `customer_checkout__element-order-table-item-number-${i + 1}`
-                  }
+                  data-testid={ `customer_checkout__element-order-table-item-number-${i + 1}` }
                 >
                   { i + 1 }
                 </Td>
@@ -63,23 +99,17 @@ function CheckoutItems() {
                   { product }
                 </Td>
                 <Td
-                  data-testid={
-                    `customer_checkout__element-order-table-quantity-${i + 1}`
-                  }
+                  data-testid={ `customer_checkout__element-order-table-quantity-${i + 1}` }
                 >
                   { quantity }
                 </Td>
                 <Td
-                  data-testid={
-                    `customer_checkout__element-order-table-unit-price-${i + 1}`
-                  }
+                  data-testid={ `customer_checkout__element-order-table-unit-price-${i + 1}` }
                 >
                   { unitPrice }
                 </Td>
                 <Td
-                  data-testid={
-                    `customer_checkout__element-order-table-sub-total-${i + 1}`
-                  }
+                  data-testid={ `customer_checkout__element-order-table-sub-total-${i + 1}` }
                 >
                   { subTotal }
                 </Td>
@@ -88,7 +118,6 @@ function CheckoutItems() {
                 >
                   Remover
                 </Td>
-
               </tr>
             );
           })

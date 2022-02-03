@@ -1,59 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
+import ProductInput from './ProductsInput';
 import {
   Container,
   CardsContainer,
   Card,
   Image,
-  Input,
+  // Input,
   Span,
   Cart,
 } from './styles';
 
-const CARDS_COUNT = 11;
-const MAX = 90;
-const MIN = 10;
-
-// ? Mocking an array to render the cards
-const cards = Array(CARDS_COUNT).fill();
-
 const Products = () => {
-  // const [itemCount, setItemCount] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [products, setProducts] = useState([]);
+  // const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsloading] = useState(true);
 
-  const handleCount = (e) => {
-    console.log(e.target.value);
-  };
+  // const handleQuantity = ({ target }) => {
+  //   // const id = target.dataset.testid;
+  //   const valueQuantity = Number(target.value);
+  //   setQuantity(valueQuantity);
+  // };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = 'http://localhost:3001/products';
+      const config = {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      try {
+        const result = await fetch(url, config);
+        const resultMessage = await result.json();
+        setProducts(resultMessage);
+        setIsloading(false);
+        return resultMessage;
+      } catch (error) {
+        return error;
+      }
+    };
+    setQuantity(1);
+    fetchProducts();
+  }, []);
 
+  if (isLoading) return <Loading />;
   return (
     <Container>
       <NavBar userRole="user" />
       <CardsContainer>
         {
-          cards.map((_, i) => (
-            <Card key={ i }>
-              <Span data-testid={ `customer_products__element-card-price-${i + 1}` }>
+          products.map(({ id, name, price, url_image: urlImage }) => (
+            <Card key={ id }>
+              <Span data-testid={ `customer_products__element-card-price-${id}` }>
                 <strong>
-                  R$5,
-                  { Math.floor(Math.random() * MAX) + MIN }
+                  { price.replace('.', ',') }
                 </strong>
               </Span>
               <Image
-                src="https://www.cellshop.com/7419022-large_default/cerveja-heineken-premium-quality-250ml-garrafa.jpg"
-                data-testid={ `customer_products__img-card-bg-image-${i + 1}` }
+                src={ urlImage }
+                data-testid={ `customer_products__img-card-bg-image-${id}` }
               />
               <div>
                 <h4
-                  data-testid={ `customer_products__element-card-title-${i + 1}` }
+                  data-testid={ `customer_products__element-card-title-${id}` }
                 >
-                  Heineken
+                  { name }
                 </h4>
                 <form>
-                  <Input
-                    data-testid={ `customer_products__input-card-quantity-${i + 1}` }
+                  {/* <Input
+                    data-testid={ `customer_products__input-card-quantity-${id}` }
                     type="number"
-                    min="0"
-                    onChange={ handleCount }
-                  />
+                    min="1"
+                    onChange={ handleQuantity }
+                  /> */}
+                  <ProductInput id={ id } />
                 </form>
               </div>
             </Card>
@@ -62,7 +85,7 @@ const Products = () => {
       </CardsContainer>
       <Cart data-testid="customer_products__checkout-bottom-value">
         <span>
-          { `Ver carrinho: R$ ${Math.floor(Math.random() * MAX) + MIN}` }
+          { `Ver carrinho: R$ ${quantity}` }
         </span>
       </Cart>
     </Container>
