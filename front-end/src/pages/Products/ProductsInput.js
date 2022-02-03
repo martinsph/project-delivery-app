@@ -97,5 +97,5 @@ ProductInput.propTypes = {
 export default ProductInput;
 
 ProductInput.propTypes = {
-  updateCart: PropTypes.objectOf(PropTypes.object).isRequired,
+  updateCart: PropTypes.func.isRequired,
 };
