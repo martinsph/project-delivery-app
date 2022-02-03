@@ -6,6 +6,7 @@ import Product from './pages/Products';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
 import DetailsCustomer from './pages/Details/DetailsOrderCustomer';
+import DetailsSeller from './pages/Details/DetailsOrderSeller';
 import CustomerOrders from './pages/Orders/CustomerOrders';
 import SellerOrders from './pages/Orders/SellerOrders';
 
@@ -21,8 +22,9 @@ function App() {
         <Route path="/admin/manage" element={ <Admin /> } />
         <Route path="/checkout" element={ <Checkout /> } />
         <Route path="/details/customer" element={ <DetailsCustomer /> } />
-        <Route path="/orders/customer" element={ <CustomerOrders /> } />
-        <Route path="/orders/seller" element={ <SellerOrders /> } />
+        <Route path="/details/seller" element={ <DetailsSeller /> } />
+        <Route path="/customer/orders" element={ <CustomerOrders /> } />
+        <Route path="/seller/orders" element={ <SellerOrders /> } />
       </Routes>
     </BrowserRouter>
   );
