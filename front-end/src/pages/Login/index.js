@@ -8,7 +8,9 @@ import {
 } from './styles';
 
 function Login() {
-  const [redirectLogin, setRedirectLogin] = useState(false);
+  const [redirectCustomer, setRedirectCustomer] = useState(false);
+  const [redirectAdmin, setRedirectAdmin] = useState(false);
+  const [redirectSeller, setRedirectSeller] = useState(false);
   const [redirectRegister, setRedirectRegister] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +22,13 @@ function Login() {
     const register = await registerUser(data, route);
     if (register.token) {
       localStorage.setItem('user', JSON.stringify(register));
-      return setRedirectLogin(true);
+      if (register.role === 'customer') {
+        return setRedirectCustomer(true);
+      }
+      if (register.role === 'seller') {
+        return setRedirectSeller(true);
+      }
+      return setRedirectAdmin(true);
     }
     if (register.message) return setErrorMessage(register.message);
   };
@@ -72,7 +80,9 @@ function Login() {
         >
           Login
         </button>
-        { redirectLogin && <Navigate to="/customer/products" /> }
+        { redirectAdmin && <Navigate to="/admin/manage" /> }
+        { redirectCustomer && <Navigate to="/customer/products" /> }
+        { redirectSeller && <Navigate to="/seller/orders" /> }
 
         <button
           type="button"
