@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { Form, Button } from './styles';
 
 const AdminForm = () => {
+  const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('customer');
 
   const handleChange = (e) => {
     const field = e.target.id;
@@ -21,22 +22,37 @@ const AdminForm = () => {
     setName('');
     setEmail('');
     setPassword('');
-    setRole('user');
+    setRole('customer');
+  };
+
+  const messageError = (errorMessage) => {
+    const id = 'admin_manage__element-invalid-register';
+    if (errorMessage) {
+      return <span data-testid={ id }>{ errorMessage }</span>;
+    }
   };
 
   const getUserInfo = async (e) => {
     e.preventDefault();
+    const authorization = JSON
+      .parse(localStorage.getItem('user')).token;
     const payload = { name, email, password, role };
     try {
-      await fetch('http://localhost:3001/register', {
+      const res = await fetch('http://localhost:3001/register', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          authorization,
         },
         body: JSON.stringify(payload),
-      });
+      }).then((response) => response.json());
+
       clearFields();
+      console.log(res);
+      if (res.message) {
+        setError(res.message);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -82,16 +98,22 @@ const AdminForm = () => {
           id="role"
           onChange={ handleChange }
         >
-          <option value="user">Usuário</option>
+          <option value="customer">Usuário</option>
           <option value="seller">Vendedor</option>
         </select>
       </label>
       <Button
         data-testid="admin_manage__button-register"
         onClick={ getUserInfo }
+        disabled={
+          !(/.{12,}/.test(name)
+          && /.{6,}/.test(password)
+          && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+        }
       >
         Cadastrar
       </Button>
+      { messageError(error) }
     </Form>
   );
 };
