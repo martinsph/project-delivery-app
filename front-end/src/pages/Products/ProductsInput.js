@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // Todo: Remover styles do presente arquivo
