@@ -14,9 +14,9 @@ function Checkout() {
     .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
   const [cart, setCart] = useState(cartTotal);
   const updateCart = () => {
-    const cartTotal = Object.values(JSON.parse(localStorage.getItem('cart')))
+    const cartTotalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
       .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
-    setCart(cartTotal);
+    setCart(cartTotalPrice);
   };
 
   return (

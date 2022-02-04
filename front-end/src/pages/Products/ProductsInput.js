@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 // Todo: Remover styles do presente arquivo
@@ -33,7 +33,6 @@ const ProductInput = ({ id, updateCart }) => {
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState('');
   const [price, setPrice] = useState(0);
-  const [storage, setStorage] = useState({});
 
   const handleProductQuantity = (e) => {
     const text = e.target.id;
@@ -59,7 +58,7 @@ const ProductInput = ({ id, updateCart }) => {
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    cart[id] = { product, quantity: quantity, price };
+    cart[id] = { product, quantity, price };
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
   }, [product, quantity, price]);
@@ -93,10 +92,7 @@ const ProductInput = ({ id, updateCart }) => {
 
 ProductInput.propTypes = {
   id: PropTypes.number.isRequired,
+  updateCart: PropTypes.func.isRequired,
 };
 
 export default ProductInput;
-
-ProductInput.propTypes = {
-  updateCart: PropTypes.func.isRequired,
-};

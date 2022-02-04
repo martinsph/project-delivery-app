@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 export const Td = styled.td`
   text-align: center;
@@ -45,14 +46,13 @@ function CheckoutItems({ updateCart }) {
   const [cartItems, setCartItems] = useState(cart);
 
   const handleRemove = (id) => {
-    const cart = Object.values(JSON.parse(localStorage.getItem('cart')))
+    const storageCart = Object.values(JSON.parse(localStorage.getItem('cart')))
       .map((items, i) => id === i ? { ...items, quantity: 0 } : items)
       .filter(({ quantity }) => quantity);
 
-    setCartItems(cart);
-    const payload = cart.reduce((obj, item, i) => {
-      return Object.assign(obj, { [i + 1]:  item});
-    }, {});
+    setCartItems(storageCart);
+    const payload = storageCart
+      .reduce((obj, item, i) => Object.assign(obj, { [i + 1]:  item }), {});
 
     localStorage.setItem('cart', JSON.stringify(payload));
     updateCart();
@@ -112,5 +112,9 @@ function CheckoutItems({ updateCart }) {
     </Table>
   );
 }
+
+CheckoutItems.propTypes = {
+  updateCart: PropTypes.func.isRequired,
+};
 
 export default CheckoutItems;
