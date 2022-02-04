@@ -33,6 +33,7 @@ const ProductInput = ({ id, updateCart }) => {
   const [quantity, setQuantity] = useState(0);
   const [product, setProduct] = useState('');
   const [price, setPrice] = useState(0);
+  const [storage, setStorage] = useState({});
 
   const handleProductQuantity = (e) => {
     const text = e.target.id;
@@ -50,16 +51,16 @@ const ProductInput = ({ id, updateCart }) => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('cart')) {
+    const cart = localStorage.getItem('cart');
+    if (!cart) {
       localStorage.setItem('cart', JSON.stringify({}));
     }
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    cart[id] = { product, quantity, price };
-    localStorage.setItem('cart', JSON.stringify(cart));
+  }, []);
 
-    // Toda vez que esse componente sofre uma ação
-    // Através do handleProductQuantity, a função abaixo
-    // É disparada no elemento pai
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    cart[id] = { product, quantity: quantity, price };
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
   }, [product, quantity, price]);
 

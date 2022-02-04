@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Navigate } from 'react-router-dom';
 import registerUser from '../../fetch';
 import {
@@ -6,6 +7,22 @@ import {
   Form,
   Logo,
 } from './styles';
+
+const Page = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    transform: translateY(220px);
+    position: absolute;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: red;
+  }
+`;
 
 function Login() {
   const [redirectLogin, setRedirectLogin] = useState(false);
@@ -37,55 +54,57 @@ function Login() {
   };
 
   return (
-    <LoginContainer>
-      <Logo />
-      <h2>Nice app</h2>
-      <Form>
-        <label htmlFor="email">
-          Login
-          <br />
-          <input
-            placeholder="email"
-            data-testid="common_login__input-email"
-            name="email"
-            onChange={ ({ target: { value } }) => setEmail(value) }
-          />
-        </label>
-        <label htmlFor="passwor">
-          Senha
-          <br />
-          <input
-            placeholder="password"
-            data-testid="common_login__input-password"
-            name="password"
-            type="password"
-            onChange={ ({ target: { value } }) => setPassword(value) }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={
-            !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
-          }
-          onClick={ () => { handleSubmit(); } }
-        >
-          Login
-        </button>
-        { redirectLogin && <Navigate to="/customer/products" /> }
+    <Page>
+      <LoginContainer>
+        <Logo />
+        <h2>Nice app</h2>
+        <Form>
+          <label htmlFor="email">
+            Login
+            <br />
+            <input
+              placeholder="email"
+              data-testid="common_login__input-email"
+              name="email"
+              onChange={ ({ target: { value } }) => setEmail(value) }
+            />
+          </label>
+          <label htmlFor="passwor">
+            Senha
+            <br />
+            <input
+              placeholder="password"
+              data-testid="common_login__input-password"
+              name="password"
+              type="password"
+              onChange={ ({ target: { value } }) => setPassword(value) }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="common_login__button-login"
+            disabled={
+              !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+            }
+            onClick={ () => { handleSubmit(); } }
+          >
+            Login
+          </button>
+          { redirectLogin && <Navigate to="/customer/products" /> }
 
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => { handleRegister(); } }
-        >
-          Ainda não tenho conta
-        </button>
-        { redirectRegister && <Navigate to="/register" /> }
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+            onClick={ () => { handleRegister(); } }
+          >
+            Ainda não tenho conta
+          </button>
+          { redirectRegister && <Navigate to="/register" /> }
 
-      </Form>
+        </Form>
+      </LoginContainer>
       { messageError(errorMessage) }
-    </LoginContainer>
+    </Page>
   );
 }
 

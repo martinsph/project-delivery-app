@@ -2,8 +2,12 @@ import styled from 'styled-components';
 
 const Header = styled.header`
   display: flex;
+  // position: fixed;
+  // width: 100%;
+  // z-index: 10;
   background-color: #036B52;
   color: white;
+  box-shadow: 0 2px 2px silver;
 
   & nav {
     display: flex;

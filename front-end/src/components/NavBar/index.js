@@ -1,14 +1,43 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from './styles';
+
+const Sair = styled.button`
+  border: none;
+  font-weight: bold;
+  padding: 0 20px;
+  font-size: 1.1rem;
+  background: #056CF9;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+    background: #2480fb;
+  }
+`;
+
+const style = {
+  fontWeight: 'bold',
+  fontSize: '1.1rem',
+  color: 'white',
+};
 
 const renderUserType = (role) => {
   if (role === 'customer') {
     return (
       <>
-        <Link to="/customer/products">Produtos</Link>
         <Link
+          style={ style }
+          // href='/customer/products'
+          to="/customer/products"
+        >
+          Produtos
+        </Link>
+        <Link
+          style={ style }
+          // href='/customer/orders'
           data-testid="customer_products__element-navbar-link-orders"
           to="/customer/orders"
         >
@@ -20,6 +49,7 @@ const renderUserType = (role) => {
   if (role === 'seller') {
     return (
       <Link
+        style={ style }
         data-testid="customer_products__element-navbar-link-orders"
         to="/products"
       >
@@ -30,6 +60,7 @@ const renderUserType = (role) => {
 
   return (
     <Link
+      style={ style }
       data-testid="customer_products__element-navbar-link-orders"
       to="/products"
     >
@@ -58,13 +89,13 @@ const NavbarComponent = ({ userRole }) => {
         { username }
       </h3>
 
-      <button
+      <Sair
         type="button"
         onClick={ handleLogout }
         data-testid="customer_products__element-navbar-link-logout"
       >
         Sair
-      </button>
+      </Sair>
     </Header>
   );
 };

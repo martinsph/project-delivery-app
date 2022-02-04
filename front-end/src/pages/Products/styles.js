@@ -12,7 +12,7 @@ export const CardsContainer = styled.div`
   margin: auto;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: 40px;
+  margin: 40px 0;
   display: flex;
 `;
 
@@ -27,10 +27,17 @@ export const Card = styled.div`
   flex-direction: column;
   height: 300px;
   width: 220px;
-  border: 1px solid;
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .3);
   position: relative;
+  transform: scale(0);
+  animation: showUp 300ms 100ms ease-out forwards;
+
+  // Zoom no card ao pousar o cursor sobre ele
+  // &:hover {
+  //   transform: scale(3);
+  // }
 
   & > div {
     display: flex;
@@ -48,6 +55,13 @@ export const Card = styled.div`
   &:first-of-type img {
     object-fit: scale-down;
     height: 218px;
+  }
+
+  @keyframes showUp {
+    to {
+      transform: scale(1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+    }
   }
 `;
 

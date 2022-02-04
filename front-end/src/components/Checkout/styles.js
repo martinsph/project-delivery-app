@@ -25,12 +25,12 @@ export const Label = styled.label`
 
 export const Button = styled.button`
   display: flex;
-  padding: 6px;
+  padding: 8px 12px;
   background-color: #036B52;
   color: #F2FFFC;
   border: none;
   box-shadow: 0 8px 4px -4px #00000050;
-  border-radius: 6px;
+  border-radius: 4px;
   margin: auto;
   margin-top: 30px;
   height: 40px;

@@ -13,6 +13,7 @@ import {
 } from './styles';
 
 const Products = () => {
+  const animationDelay = 25;
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -58,8 +59,8 @@ const Products = () => {
       <NavBar userRole="customer" />
       <CardsContainer>
         {
-          products.map(({ id, name, price, url_image: urlImage }) => (
-            <Card key={ id }>
+          products.map(({ id, name, price, url_image: urlImage }, i) => (
+            <Card key={ id } style={ { animationDelay: `${i * animationDelay}ms` } }>
               <Span data-testid={ `customer_products__element-card-price-${id}` }>
                 <strong>
                   { price.replace('.', ',') }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '../../components/NavBar';
 import CheckoutDelivery from '../../components/Checkout/CheckoutDelivery';
 import CheckoutItems from '../../components/Checkout/CheckoutItems';
@@ -9,15 +9,26 @@ import { Page,
   Span,
 } from './styles';
 
-function CustomerCheckout() {
+function Checkout() {
+  const cartTotal = Object.values(JSON.parse(localStorage.getItem('cart')))
+    .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
+  const [cart, setCart] = useState(cartTotal);
+  const updateCart = () => {
+    const cartTotal = Object.values(JSON.parse(localStorage.getItem('cart')))
+      .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
+    setCart(cartTotal);
+  };
+
   return (
     <Page>
       <NavBar userRole="customer" />
       <ContainerSection>
         <h2>Finalizar Pedido</h2>
         <ContainerSectionSuperior>
-          <CheckoutItems />
-          <Span data-testid="customer_checkout__element-order-total-price">Total</Span>
+          <CheckoutItems updateCart={ updateCart } />
+          <Span>
+            { `Total R$: ${cart.toFixed(2)}` }
+          </Span>
         </ContainerSectionSuperior>
         <h2>Detalhes e Endereço para Entrega</h2>
         <ContainerSectionInferior>
@@ -28,4 +39,4 @@ function CustomerCheckout() {
   );
 }
 
-export default CustomerCheckout;
+export default Checkout;

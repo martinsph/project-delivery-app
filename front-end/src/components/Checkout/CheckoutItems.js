@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 export const Td = styled.td`
@@ -39,10 +39,22 @@ export const Th = styled.th`
   font-family: 'Nunito', sans-serif;
 `;
 
-function CheckoutItems() {
-  // getting cart products
+function CheckoutItems({ updateCart }) {
   const cart = Object.values(JSON.parse(localStorage.getItem('cart')))
     .filter(({ quantity }) => quantity);
+  const [cartItems, setCartItems] = useState(cart);
+
+  const handleRemove = (id) => {
+    const cart = Object.values(JSON.parse(localStorage.getItem('cart')))
+      .map((items, i) => id === i ? { ...items, quantity: 0 } : items)
+    setCartItems(cart.filter(({ quantity }) => quantity));
+    const payload = cart.reduce((obj, item, i) => {
+      return Object.assign(obj, { [i + 1]:  item});
+    }, {});
+
+    localStorage.setItem('cart', JSON.stringify(payload));
+    updateCart();
+  };
 
   return (
     <Table>
@@ -58,10 +70,7 @@ function CheckoutItems() {
       </thead>
       <tbody>
         {
-          cart.map(({ product, quantity, price }, i) => (
-            // Todo: Armazenar todos os data-testids em um objeto
-            // importá-lo onde for necessário e passar apenas sua key
-            // para acessá-lo
+          cartItems.map(({ product, quantity, price }, i) => (
             <tr key={ i }>
               <Td
                 data-testid={ `customer_checkout__element-order-table-item-number-${i + 1}` }
@@ -89,6 +98,7 @@ function CheckoutItems() {
                 { (quantity * price).toFixed(2) }
               </Td>
               <Td
+                onClick={ () => handleRemove(i) }
                 data-testid={ `customer_checkout__element-order-table-remove-${i + 1}` }
               >
                 Remover
