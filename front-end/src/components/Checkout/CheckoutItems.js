@@ -47,7 +47,9 @@ function CheckoutItems({ updateCart }) {
   const handleRemove = (id) => {
     const cart = Object.values(JSON.parse(localStorage.getItem('cart')))
       .map((items, i) => id === i ? { ...items, quantity: 0 } : items)
-    setCartItems(cart.filter(({ quantity }) => quantity));
+      .filter(({ quantity }) => quantity);
+
+    setCartItems(cart);
     const payload = cart.reduce((obj, item, i) => {
       return Object.assign(obj, { [i + 1]:  item});
     }, {});
