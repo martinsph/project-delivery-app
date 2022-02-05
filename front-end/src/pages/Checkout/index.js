@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import CheckoutDelivery from '../../components/Checkout/CheckoutDelivery';
 import CheckoutItems from '../../components/Checkout/CheckoutItems';
@@ -10,14 +10,17 @@ import { Page,
 } from './styles';
 
 function Checkout() {
-  const cartTotal = Object.values(JSON.parse(localStorage.getItem('cart')))
-    .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
-  const [cart, setCart] = useState(cartTotal);
+  const [cart, setCart] = useState(0);
+
   const updateCart = () => {
     const cartTotalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
       .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
     setCart(cartTotalPrice);
   };
+
+  useEffect(() => {
+    updateCart();
+  }, [])
 
   return (
     <Page>
