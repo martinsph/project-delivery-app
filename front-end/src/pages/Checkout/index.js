@@ -13,14 +13,14 @@ function Checkout() {
   const [cart, setCart] = useState(0);
 
   const updateCart = () => {
-    const cartTotalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
-      .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
-    setCart(cartTotalPrice);
+    const totalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
+      .reduce((subtotal, { quantity, price }) => subtotal + (quantity * price), 0);
+    setCart(totalPrice);
   };
 
   useEffect(() => {
     updateCart();
-  }, [])
+  }, []);
 
   return (
     <Page>

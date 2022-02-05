@@ -68,8 +68,8 @@ function CheckoutItems({ updateCart }) {
     // para condizer com o formato padrão do carrinho no localStorage
     const payload = storageCart
       .reduce((obj, item, i) => Object.assign(obj, { [i + 1]: item }), {});
-    
-    // Atualiza o cart no localStorage
+
+    // Atualiza o carrinho no localStorage
     localStorage.setItem('cart', JSON.stringify(payload));
     updateCart();
   };
