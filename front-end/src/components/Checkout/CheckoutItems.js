@@ -49,10 +49,6 @@ function CheckoutItems({ updateCart }) {
   }, []);
 
   const handleRemove = (id) => {
-    // Pega os itens do carrinho
-    // Faz um map, comparando o id recebido pela função com o index do mesmo,
-    // Atualiza a quantity pra 0 se o id for igual ao index,
-    // Faz um filtro de elementos no qual o valor do quantity seja > 0
     const storageCart = Object.values(JSON.parse(localStorage.getItem('cart')))
       .map((items, i) => {
         if (id === i) return { ...items, quantity: 0 };
@@ -60,16 +56,11 @@ function CheckoutItems({ updateCart }) {
       })
       .filter(({ quantity }) => quantity);
 
-    // Seta o state, com os valores já filtrados
-    // para serem renderizados na tela
     setCartItems(storageCart);
 
-    // Com o carrinho atualizado, é feito um novo objeto de objetos
-    // para condizer com o formato padrão do carrinho no localStorage
     const payload = storageCart
       .reduce((obj, item, i) => Object.assign(obj, { [i + 1]: item }), {});
 
-    // Atualiza o carrinho no localStorage
     localStorage.setItem('cart', JSON.stringify(payload));
 
     updateCart();
