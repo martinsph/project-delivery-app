@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import CheckoutDelivery from '../../components/Checkout/CheckoutDelivery';
 import CheckoutItems from '../../components/Checkout/CheckoutItems';
-import { Page,
+import {
+  Page,
   ContainerSection,
   ContainerSectionSuperior,
   ContainerSectionInferior,
@@ -14,7 +15,7 @@ function Checkout() {
 
   const updateCart = () => {
     const totalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
-      .reduce((subtotal, { quantity, price }) => subtotal + (quantity * price), 0);
+      .reduce((subtotal, { quantity, price }) => subtotal + quantity * price, 0);
     setCart(totalPrice);
   };
 
@@ -26,12 +27,10 @@ function Checkout() {
     <Page>
       <NavBar userRole="customer" />
       <ContainerSection>
-        <h2>Finalizar Pedido</h2>
+        <h2> Finalizar Pedido </h2>
         <ContainerSectionSuperior>
           <CheckoutItems updateCart={ updateCart } />
-          <Span>
-            { `Total R$: ${cart.toFixed(2)}` }
-          </Span>
+          <Span>{ `Total R$: ${cart.toFixed(2)}` }</Span>
         </ContainerSectionSuperior>
         <h2>Detalhes e Endereço para Entrega</h2>
         <ContainerSectionInferior>
