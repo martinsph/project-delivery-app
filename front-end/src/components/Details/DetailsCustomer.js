@@ -59,7 +59,7 @@ function DetailsCustomer({ order }) {
 }
 
 DetailsCustomer.propTypes = {
-  order: PropTypes.object.isRequired,
+  order: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default DetailsCustomer;
