@@ -78,6 +78,7 @@ const NavbarComponent = ({ userRole }) => {
   const handleLogout = () => {
     /* setLogout(true); */
     localStorage.removeItem('user');
+    localStorage.removeItem('carrinho');
     navigate('/');
   };
   return (

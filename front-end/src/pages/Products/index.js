@@ -42,7 +42,7 @@ const Products = () => {
   }, []);
 
   const updateCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart'));
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
     const total = Object.values(cart)
       .reduce((subtotal, { quantity, price }) => subtotal + ((quantity * price) || 0), 0);
     setTotalPrice(total);

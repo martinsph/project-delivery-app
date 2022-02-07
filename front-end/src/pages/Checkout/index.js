@@ -14,7 +14,7 @@ function Checkout() {
   const [cart, setCart] = useState(0);
 
   const updateCart = () => {
-    const totalPrice = Object.values(JSON.parse(localStorage.getItem('cart')))
+    const totalPrice = Object.values(JSON.parse(localStorage.getItem('carrinho')))
       .reduce((subtotal, { quantity, price }) => subtotal + quantity * price, 0);
     setCart(totalPrice);
   };

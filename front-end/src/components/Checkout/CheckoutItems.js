@@ -43,13 +43,13 @@ function CheckoutItems({ updateCart }) {
 
   useEffect(() => {
     const cart = Object
-      .values(JSON.parse(localStorage.getItem('cart')))
+      .values(JSON.parse(localStorage.getItem('carrinho')))
       .filter(({ quantity }) => quantity);
     setCartItems(cart);
   }, []);
 
   const handleRemove = (id) => {
-    const storageCart = Object.values(JSON.parse(localStorage.getItem('cart')))
+    const storageCart = Object.values(JSON.parse(localStorage.getItem('carrinho')))
       .map((items, i) => {
         if (id === i) return { ...items, quantity: 0 };
         return items;
@@ -61,7 +61,7 @@ function CheckoutItems({ updateCart }) {
     const payload = storageCart
       .reduce((obj, item, i) => Object.assign(obj, { [i + 1]: item }), {});
 
-    localStorage.setItem('cart', JSON.stringify(payload));
+    localStorage.setItem('carrinho', JSON.stringify(payload));
 
     updateCart();
   };
