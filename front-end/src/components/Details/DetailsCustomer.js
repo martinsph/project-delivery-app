@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container2, Td2, Table2, Head2, Header2 } from './styles';
 
 function DetailsCustomer({ order }) {
+  console.log(order);
   const { id, products, status, saleDate, seller } = order;
 
   const changeDate = (date) => {
@@ -16,7 +18,10 @@ function DetailsCustomer({ order }) {
           { `Pedido ${id}` }
         </Header2>
         <Header2>
-          P. Vendedora: <strong>{ seller && seller.name }</strong>
+          P. Vendedora:
+          <strong>
+            { seller && seller.name }
+          </strong>
         </Header2>
         <Header2>{ saleDate && changeDate(saleDate) }</Header2>
         <Header2>{ status }</Header2>
@@ -52,5 +57,9 @@ function DetailsCustomer({ order }) {
     </Container2>
   );
 }
+
+DetailsCustomer.propTypes = {
+  order: PropTypes.object.isRequired,
+};
 
 export default DetailsCustomer;

@@ -28,7 +28,7 @@ function DetailsOrderCustomer() {
         <ContainerSectionSuperior>
           <DetailsCustomer order={ order } />
           <Span data-testid="customer_details">
-            Total R$: { order.totalPrice }
+            { `Total: R$ ${order.totalPrice}` }
           </Span>
         </ContainerSectionSuperior>
       </ContainerSection>

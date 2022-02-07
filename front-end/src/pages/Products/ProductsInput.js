@@ -42,13 +42,9 @@ const ProductInput = ({ id, updateCart }) => {
   const [subTotal, setSubTotal] = useState(0);
 
   const handleProductQuantity = ({ target }) => {
-    const { id } = target;
-    // Previne usuário entrar com
-    // caracteres não numéricos
-    if (/\D/.test(target.value)) return;
+    const { id: tagId } = target;
 
-    // Previne valor ser negativo usando o decrement
-    // caso quantity seja 0
+    if (/\D/.test(target.value)) return;
     if (quantity === 0 && id === 'decrement') return;
 
     // Todo: Refatorar esse monstro depois
@@ -59,16 +55,13 @@ const ProductInput = ({ id, updateCart }) => {
 
     setProduct(productName);
     setUnitPrice(parseFloat(productPrice.replace(',', '.')));
-    // Linter reclamada de ternário aninhado
-    // Partiu short-circuit :p
-    const quant = (target.id === 'quantity-input' && Number(target.value))
-      || (id === 'increment' ? quantity + 1 : quantity - 1);
+
+    const quant = (tagId === 'quantity-input' && Number(target.value))
+      || (tagId === 'increment' ? quantity + 1 : quantity - 1);
     setQuantity(quant);
   };
 
   useEffect(() => {
-    // Cria carrinho ao montar o componente
-    // e o mesmo ainda não existir
     const cart = localStorage.getItem('carrinho');
     if (!cart) {
       localStorage.setItem('carrinho', JSON.stringify({}));
@@ -77,10 +70,6 @@ const ProductInput = ({ id, updateCart }) => {
 
   useEffect(() => {
     // Todo: Previnir refresh do localStorage
-    // ao navegar entre endpoints
-
-    // Atualiza localStorage toda vez que o estado
-    // de alguma dependência sofrer alteração
     setSubTotal(quantity * unitPrice);
     const cart = JSON.parse(localStorage.getItem('carrinho'));
     cart[id] = { name, unitPrice, quantity, subTotal };
