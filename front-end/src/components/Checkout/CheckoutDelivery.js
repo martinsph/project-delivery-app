@@ -15,7 +15,6 @@ function CheckoutDelivery() {
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
 
-
   const handleSeller = (e) => setSeller(e.target.value);
   const handleAddress = (e) => setAddress(e.target.value);
   const handleNumber = (e) => setAddressNumber(e.target.value);
@@ -26,7 +25,7 @@ function CheckoutDelivery() {
 
   const navigate = useNavigate();
   const products = Object.values(JSON.parse(localStorage.getItem('carrinho')))
-    .map((product, id) => ({ id, ...product }))
+    .map((product, id) => ({ id: id + 1, ...product }))
     .filter(({ quantity }) => quantity);
 
   const createSale = async () => {
@@ -34,13 +33,13 @@ function CheckoutDelivery() {
       method: 'POST',
       headers: new Headers({
         // Authorization: token,
-        'Content-Type': 'application/json'
-      }), 
+        'Content-Type': 'application/json',
+      }),
+      // Todo: Alterar payload estático
       body: JSON.stringify({ ...payload, products }),
     });
 
     const response = await sale.json();
-    console.log(response);
 
     navigate(`/customer/orders/${response.id}`);
   };
@@ -64,7 +63,6 @@ function CheckoutDelivery() {
           </option>
         </Select>
       </Label>
-
       <Label htmlFor="input-address">
         Endereço
         <Input
@@ -86,7 +84,7 @@ function CheckoutDelivery() {
 
       <Button
         onClick={ createSale }
-        data-testid="customer_checkout__Button-submit-order"
+        data-testid="customer_checkout__button-submit-order"
         type="button"
       >
         FINALIZAR PEDIDO
