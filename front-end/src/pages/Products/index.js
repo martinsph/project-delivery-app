@@ -9,7 +9,7 @@ import {
   Card,
   Image,
   Span,
-  Cart,
+  Button,
 } from './styles';
 
 const Products = () => {
@@ -84,14 +84,14 @@ const Products = () => {
           ))
         }
       </CardsContainer>
-      <Cart
+      <Button
         onClick={ redirectUser }
+        type="button"
         data-testid="customer_products__checkout-bottom-value"
+        disabled={ totalPrice === 0 }
       >
-        <span>
-          { `Ver carrinho: R$ ${totalPrice.toFixed(2)}` }
-        </span>
-      </Cart>
+        { `Ver carrinho: R$ ${totalPrice.toFixed(2)}` }
+      </Button>
     </Container>
   );
 };

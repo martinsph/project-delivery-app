@@ -114,7 +114,7 @@ const ProductInput = ({ id, updateCart }) => {
 };
 
 ProductInput.propTypes = {
-  productId: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
   updateCart: PropTypes.func.isRequired,
 };
 
