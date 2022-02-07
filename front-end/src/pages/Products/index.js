@@ -87,10 +87,15 @@ const Products = () => {
       <Button
         onClick={ redirectUser }
         type="button"
-        data-testid="customer_products__checkout-bottom-value"
         disabled={ totalPrice === 0 }
       >
-        { `Ver carrinho: R$ ${totalPrice.toFixed(2)}` }
+        Ver carrinho: R$
+        <strong
+          data-testid="data-testid='customer_products__checkout-bottom-value"
+        >
+          { totalPrice.toFixed(2).replace('.', ',') }
+        </strong>
+          
       </Button>
     </Container>
   );
