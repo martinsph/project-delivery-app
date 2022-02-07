@@ -36,7 +36,8 @@ const ProductInput = ({ id, updateCart }) => {
 
   const handleProductQuantity = (e) => {
     const text = e.target.id;
-    if (quantity === 0 && text === 'decrement') return;
+    const element = e.target;
+    if (element.value === 0 && text === 'decrement') return;
 
     // Todo: Refatorar esse monstro depois
     const productName = e.target.parentNode
@@ -46,7 +47,11 @@ const ProductInput = ({ id, updateCart }) => {
 
     setProduct(productName);
     setPrice(parseFloat(productPrice.replace(',', '.')));
-    setQuantity(text === 'increment' ? quantity + 1 : quantity - 1);
+    if (element.type === 'number') {
+      setQuantity(element.value);
+      return;
+    }
+    setQuantity(text === 'increment' ? Number(quantity) + 1 : Number(quantity) - 1);
   };
 
   useEffect(() => {
@@ -73,11 +78,13 @@ const ProductInput = ({ id, updateCart }) => {
       >
         -
       </button>
-      <Span
+      <input
+        value={ quantity }
+        min="0"
+        type="number"
+        onChange={ handleProductQuantity }
         data-testid={ `customer_products__input-card-quantity-${id}` }
-      >
-        { quantity }
-      </Span>
+      />
       <button
         onClick={ handleProductQuantity }
         id="increment"
