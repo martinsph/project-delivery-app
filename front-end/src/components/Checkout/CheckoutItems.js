@@ -59,7 +59,7 @@ function CheckoutItems({ updateCart }) {
     setCartItems(storageCart);
 
     const payload = storageCart
-      .reduce((obj, item, i) => Object.assign(obj, { [i + 1]: item }), {});
+      .reduce((obj, item, i) => Object.assign(obj, { [i]: item }), {});
 
     localStorage.setItem('carrinho', JSON.stringify(payload));
 
