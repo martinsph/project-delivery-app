@@ -30,14 +30,13 @@ const renderUserType = (role) => {
       <>
         <Link
           style={ style }
-          // href='/customer/products'
+          data-testid="customer_products__element-navbar-link-products"
           to="/customer/products"
         >
           Produtos
         </Link>
         <Link
           style={ style }
-          // href='/customer/orders'
           data-testid="customer_products__element-navbar-link-orders"
           to="/customer/orders"
         >
