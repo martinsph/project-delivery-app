@@ -108,7 +108,7 @@ export const Td2 = styled.td`
 `;
 
 export const Table2 = styled.table`
-  margin: 0 8px;
+  margin: 0 12px;
 `;
 
 export const Head2 = styled.div`
@@ -120,6 +120,10 @@ export const Head2 = styled.div`
 `;
 
 export const Header2 = styled.p`
+  & strong {
+    font-weight: bold;
+  }
+
   &:nth-child(1) {
     font-weight: bold;
   }

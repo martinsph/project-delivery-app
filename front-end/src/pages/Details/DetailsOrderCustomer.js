@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import DetailsCustomer from '../../components/Details/DetailsCustomer';
-import { useParams } from 'react-router-dom';
 import { Page,
   ContainerSection,
   ContainerSectionSuperior,
@@ -14,8 +14,8 @@ function DetailsOrderCustomer() {
 
   useEffect(() => {
     (async () => {
-      const order = await fetch(`http://localhost:3001/sales/${id}`);
-      const data = await order.json();
+      const response = await fetch(`http://localhost:3001/sales/${id}`);
+      const data = await response.json();
       await setOrder(data);
     })();
   }, []);
