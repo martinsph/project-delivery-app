@@ -79,7 +79,7 @@ function CheckoutItems({ updateCart }) {
         </tr>
       </thead>
       <tbody>
-        {cartItems.map(({ product, quantity, price }, i) => (
+        {cartItems.map(({ name, unitPrice, quantity, subTotal }, i) => (
           <tr key={ i }>
             <Td
               data-testid={
@@ -93,7 +93,7 @@ function CheckoutItems({ updateCart }) {
                 `customer_checkout__element-order-table-name-${i}`
               }
             >
-              {product}
+              { name }
             </Td>
             <Td
               data-testid={
@@ -107,14 +107,14 @@ function CheckoutItems({ updateCart }) {
                 `customer_checkout__element-order-table-unit-price-${i}`
               }
             >
-              { price }
+              { unitPrice }
             </Td>
             <Td
               data-testid={
                 `customer_checkout__element-order-table-sub-total-${i}`
               }
             >
-              { (quantity * price).toFixed(2) }
+              { subTotal.toFixed(2) }
             </Td>
             <Td
               onClick={ () => handleRemove(i) }

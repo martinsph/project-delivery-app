@@ -34,9 +34,10 @@ const ControlsContainer = styled.div`
 `;
 
 const ProductInput = ({ id, updateCart }) => {
+  const [name, setProduct] = useState('');
+  const [unitPrice, setUnitPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [product, setProduct] = useState('');
-  const [price, setPrice] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
 
   const handleProductQuantity = ({ target }) => {
     const { id } = target;
@@ -55,12 +56,12 @@ const ProductInput = ({ id, updateCart }) => {
       .parentNode.parentNode.parentNode.firstChild.innerText;
 
     setProduct(productName);
-    setPrice(parseFloat(productPrice.replace(',', '.')));
-    if (target.id === 'quantity-input') {
-      setQuantity(Number(target.value));
-      return;
-    }
-    setQuantity(id === 'increment' ? quantity + 1 : quantity - 1);
+    setUnitPrice(parseFloat(productPrice.replace(',', '.')));
+    // Linter reclamada de ternário aninhado
+    // Partiu short-circuit :p
+    const quant = (target.id === 'quantity-input' && Number(target.value))
+      || (id === 'increment' ? quantity + 1 : quantity - 1);
+    setQuantity(quant);
   };
 
   useEffect(() => {
@@ -78,11 +79,12 @@ const ProductInput = ({ id, updateCart }) => {
 
     // Atualiza localStorage toda vez que o estado
     // de alguma dependência sofrer alteração
+    setSubTotal(quantity * unitPrice);
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    cart[id] = { product, quantity, price };
+    cart[id] = { name, unitPrice, quantity, subTotal };
     localStorage.setItem('carrinho', JSON.stringify(cart));
     updateCart();
-  }, [product, quantity, price]);
+  }, [name, unitPrice, quantity, subTotal]);
 
   return (
     <ControlsContainer>
