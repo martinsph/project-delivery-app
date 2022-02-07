@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Label, Button, Input, Select } from './styles';
 
@@ -11,6 +11,19 @@ const payload = {
 };
 
 function CheckoutDelivery() {
+  const [seller, setSeller] = useState('');
+  const [address, setAddress] = useState('');
+  const [addressNumber, setAddressNumber] = useState('');
+
+
+  const handleSeller = (e) => setSeller(e.target.value);
+  const handleAddress = (e) => setAddress(e.target.value);
+  const handleNumber = (e) => setAddressNumber(e.target.value);
+
+  useEffect(() => {
+    console.log(seller, address, addressNumber);
+  }, [seller, address, addressNumber]);
+
   const navigate = useNavigate();
   const products = Object.values(JSON.parse(localStorage.getItem('carrinho')))
     .map((product, id) => ({ id, ...product }))
@@ -37,12 +50,17 @@ function CheckoutDelivery() {
       <Label htmlFor="select-seller">
         P. Vendedora Responsável
         <Select
+          onChange={ handleSeller }
+          value={ seller }
           data-testid="customer_checkout__select-seller"
           name="select-seller"
           id="select-seller"
         >
-          <option>
+          <option value="Fulana de Tal">
             Fulana de tal
+          </option>
+          <option value="ABC">
+            ABC
           </option>
         </Select>
       </Label>
@@ -50,15 +68,16 @@ function CheckoutDelivery() {
       <Label htmlFor="input-address">
         Endereço
         <Input
+          onChange={ handleAddress }
           data-testid="customer_checkout__input-address"
           type="text"
           name="input-address"
         />
       </Label>
-
       <Label htmlFor="input-address">
         Número
         <Input
+          onChange={ handleNumber }
           data-testid="customer_checkout__input-address"
           type="number"
           name="input-address"
