@@ -8,6 +8,7 @@ import Checkout from './pages/Checkout';
 import DetailsCustomer from './pages/Details/DetailsOrderCustomer';
 import DetailsSeller from './pages/Details/DetailsOrderSeller';
 import CustomerOrders from './pages/Orders/CustomerOrders';
+// import CustomerOrderId from './pages/Orders/CustomerOrderId';
 import SellerOrders from './pages/Orders/SellerOrders';
 
 function App() {
@@ -18,13 +19,12 @@ function App() {
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
         <Route path="/customer/products" element={ <Product /> } />
-        <Route path="/products" element={ <Product /> } />
-        <Route path="/admin/manage" element={ <Admin /> } />
         <Route path="/customer/checkout" element={ <Checkout /> } />
-        <Route path="/details/customer" element={ <DetailsCustomer /> } />
-        <Route path="/details/seller" element={ <DetailsSeller /> } />
         <Route path="/customer/orders" element={ <CustomerOrders /> } />
+        <Route path="/customer/orders/:id" element={ <DetailsCustomer /> } />
         <Route path="/seller/orders" element={ <SellerOrders /> } />
+        <Route path="/seller/orders/:id" element={ <DetailsSeller /> } />
+        <Route path="/admin/manage" element={ <Admin /> } />
       </Routes>
     </BrowserRouter>
   );

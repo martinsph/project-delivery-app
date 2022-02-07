@@ -27,7 +27,7 @@ function Checkout() {
     <Page>
       <NavBar userRole="customer" />
       <ContainerSection>
-        <h2> Finalizar Pedido </h2>
+        <h2>Finalizar Pedido</h2>
         <ContainerSectionSuperior>
           <CheckoutItems updateCart={ updateCart } />
           <Span>{ `Total R$: ${cart.toFixed(2)}` }</Span>

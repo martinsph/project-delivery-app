@@ -6,17 +6,19 @@ import PropTypes from 'prop-types';
 const Input = styled.input`
   border: none;
   outline: none;
-  background: mediumslateblue;
-  padding: 4px 12px;
+  background: white;
+  padding: 4px;
   font-weight: bold;
   width: 50px;
   text-align: center;
+  box-shadow: inset 2px 2px 3px rgba(0, 0, 0, .35);
 `;
 
 // Todo: Remover styles do presente arquivo
-const ControlsContainer = styled.div`
+const ControlsContainer = styled.form`
   display: flex;
   justify-content: center;
+  gap: 2px;
 
   & button {
     font-weight: bold;

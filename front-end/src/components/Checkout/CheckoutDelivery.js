@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Label, Button, Input, Select } from './styles';
 
 function CheckoutDelivery() {
+  const navigate = useNavigate();
+
+  const redirectUser = () => {
+    navigate('/customer/orders/1');
+  };
+
   return (
     <Form action="">
       <Label htmlFor="select-seller">
@@ -36,6 +43,7 @@ function CheckoutDelivery() {
       </Label>
 
       <Button
+        onClick={ redirectUser }
         data-testid="customer_checkout__Button-submit-order"
         type="button"
       >

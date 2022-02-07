@@ -50,6 +50,11 @@ function Login() {
     if (register.message) return setErrorMessage(register.message);
   };
 
+  // Se usuário já estiver logado, redirecioná-lo
+  // para sua home page, dependendo do seu role
+  // const user = localStorage.getItem('user');
+  // if (user) return <Navigate to="/customer/products" />;
+
   const handleRegister = () => {
     setRedirectRegister(true);
   };

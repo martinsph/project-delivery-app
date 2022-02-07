@@ -54,7 +54,7 @@ export const Card = styled.div`
   // card tá zoada e não sei pq
   &:first-of-type img {
     object-fit: scale-down;
-    height: 216px;
+    height: 220px;
   }
 
   @keyframes showUp {
