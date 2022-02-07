@@ -83,35 +83,35 @@ function CheckoutItems({ updateCart }) {
           <tr key={ i }>
             <Td
               data-testid={
-                `customer_checkout__element-order-table-item-number-${i + 1}`
+                `customer_checkout__element-order-table-item-number-${i}`
               }
             >
               { i + 1 }
             </Td>
             <Td
               data-testid={
-                `customer_checkout__element-order-table-name-${i + 1}`
+                `customer_checkout__element-order-table-name-${i}`
               }
             >
               {product}
             </Td>
             <Td
               data-testid={
-                `customer_checkout__element-order-table-quantity-${i + 1}`
+                `customer_checkout__element-order-table-quantity-${i}`
               }
             >
               { quantity }
             </Td>
             <Td
               data-testid={
-                `customer_checkout__element-order-table-unit-price-${i + 1}`
+                `customer_checkout__element-order-table-unit-price-${i}`
               }
             >
               { price }
             </Td>
             <Td
               data-testid={
-                `customer_checkout__element-order-table-sub-total-${i + 1}`
+                `customer_checkout__element-order-table-sub-total-${i}`
               }
             >
               { (quantity * price).toFixed(2) }
@@ -119,7 +119,7 @@ function CheckoutItems({ updateCart }) {
             <Td
               onClick={ () => handleRemove(i) }
               data-testid={
-                `customer_checkout__element-order-table-remove-${i + 1}`
+                `customer_checkout__element-order-table-remove-${i}`
               }
             >
               Remover
