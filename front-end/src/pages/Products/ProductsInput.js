@@ -40,7 +40,7 @@ const ProductInput = ({ id, updateCart }) => {
   const [unitPrice, setUnitPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
-  
+
   const preventNegatives = (e) => {
     if (e.key === 'Backspace' && quantity === 0) {
       e.preventDefault();
