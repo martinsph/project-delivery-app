@@ -30,7 +30,14 @@ function Checkout() {
         <h2>Finalizar Pedido</h2>
         <ContainerSectionSuperior>
           <CheckoutItems updateCart={ updateCart } />
-          <Span>{ `Total R$: ${cart.toFixed(2)}` }</Span>
+          <Span>
+            Total R$:
+            <strong
+              data-testid="customer_checkout__element-order-total-price"
+            >
+              { cart.toFixed(2).replace('.', ',') }
+            </strong>
+          </Span>
         </ContainerSectionSuperior>
         <h2>Detalhes e Endereço para Entrega</h2>
         <ContainerSectionInferior>

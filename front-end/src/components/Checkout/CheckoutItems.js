@@ -107,14 +107,14 @@ function CheckoutItems({ updateCart }) {
                 `customer_checkout__element-order-table-unit-price-${i}`
               }
             >
-              { unitPrice }
+              { unitPrice.toFixed(2).replace('.', ',') }
             </Td>
             <Td
               data-testid={
                 `customer_checkout__element-order-table-sub-total-${i}`
               }
             >
-              { subTotal.toFixed(2) }
+              { subTotal.toFixed(2).replace('.', ',') }
             </Td>
             <Td
               onClick={ () => handleRemove(i) }

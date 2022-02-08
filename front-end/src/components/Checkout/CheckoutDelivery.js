@@ -76,7 +76,7 @@ function CheckoutDelivery() {
         Número
         <Input
           onChange={ handleNumber }
-          data-testid="customer_checkout__input-address"
+          data-testid="customer_checkout__input-addressNumber"
           type="number"
           name="input-address"
         />
