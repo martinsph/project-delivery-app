@@ -6,12 +6,11 @@ export const LoginContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin: auto;
   padding: 24px 28px;
   width: max-content;
-  border: 1px solid;
   border-radius: 4px;
-  // animation: float 2s infinite alternate;
+  box-shadow: 0 0 0 #bbbbbb60;
+  animation: showUp 400ms forwards;
 `;
 
 export const Form = styled.form`
@@ -52,9 +51,15 @@ export const Form = styled.form`
     font-size: .85rem;
   }
 
-  @keyframes float {
-    to {
-      transform: translateY(-20px);
+  // @keyframes goUp {
+  //   to {
+  //     transform: scale(1);
+  //   }
+  // }
+
+  @keyframes showUp {
+    100% {
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .35);
     }
   }
 `;

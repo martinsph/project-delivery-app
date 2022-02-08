@@ -34,9 +34,10 @@ export const ContainerSectionInferior = styled.div`
 `;
 
 export const Span = styled.span`
-  padding: 6px;
+  padding: 8px 12px;
   background-color: #036B52;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-top: 30px;
   color: #F2FFFC;
+  font-weight: bold;
 `;

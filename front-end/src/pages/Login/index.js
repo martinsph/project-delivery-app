@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Navigate } from 'react-router-dom';
 import registerUser from '../../fetch';
 import {
@@ -6,6 +7,22 @@ import {
   Form,
   Logo,
 } from './styles';
+
+const Page = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    transform: translateY(220px);
+    position: absolute;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: red;
+  }
+`;
 
 function Login() {
   const [redirectCustomer, setRedirectCustomer] = useState(false);
@@ -22,16 +39,21 @@ function Login() {
     const register = await registerUser(data, route);
     if (register.token) {
       localStorage.setItem('user', JSON.stringify(register));
-      if (register.role === 'customer') {
-        return setRedirectCustomer(true);
+      if (register.role === 'administrator') {
+        return setRedirectAdmin(true);
       }
       if (register.role === 'seller') {
         return setRedirectSeller(true);
       }
-      return setRedirectAdmin(true);
+      return setRedirectCustomer(true);
     }
     if (register.message) return setErrorMessage(register.message);
   };
+
+  // Se usuário já estiver logado, redirecioná-lo
+  // para sua home page, dependendo do seu role
+  // const user = localStorage.getItem('user');
+  // if (user) return <Navigate to="/customer/products" />;
 
   const handleRegister = () => {
     setRedirectRegister(true);
@@ -45,57 +67,57 @@ function Login() {
   };
 
   return (
-    <LoginContainer>
-      <Logo />
-      <h2>Nice app</h2>
-      <Form>
-        <label htmlFor="email">
-          Login
-          <br />
-          <input
-            placeholder="email"
-            data-testid="common_login__input-email"
-            name="email"
-            onChange={ ({ target: { value } }) => setEmail(value) }
-          />
-        </label>
-        <label htmlFor="passwor">
-          Senha
-          <br />
-          <input
-            placeholder="password"
-            data-testid="common_login__input-password"
-            name="password"
-            type="password"
-            onChange={ ({ target: { value } }) => setPassword(value) }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="common_login__button-login"
-          disabled={
-            !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
-          }
-          onClick={ () => { handleSubmit(); } }
-        >
-          Login
-        </button>
-        { redirectAdmin && <Navigate to="/admin/manage" /> }
-        { redirectCustomer && <Navigate to="/customer/products" /> }
-        { redirectSeller && <Navigate to="/seller/orders" /> }
-
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => { handleRegister(); } }
-        >
-          Ainda não tenho conta
-        </button>
-        { redirectRegister && <Navigate to="/register" /> }
-
-      </Form>
+    <Page>
+      <LoginContainer>
+        <Logo />
+        <h2>Nice app</h2>
+        <Form>
+          <label htmlFor="email">
+            Login
+            <br />
+            <input
+              placeholder="email"
+              data-testid="common_login__input-email"
+              name="email"
+              onChange={ ({ target: { value } }) => setEmail(value) }
+            />
+          </label>
+          <label htmlFor="passwor">
+            Senha
+            <br />
+            <input
+              placeholder="password"
+              data-testid="common_login__input-password"
+              name="password"
+              type="password"
+              onChange={ ({ target: { value } }) => setPassword(value) }
+            />
+          </label>
+          <button
+            type="button"
+            data-testid="common_login__button-login"
+            disabled={
+              !(/.{6,}/.test(password) && /^\w+(\.\w+)*@\w+(\.\w+)+$/.test(email))
+            }
+            onClick={ () => { handleSubmit(); } }
+          >
+            Login
+          </button>
+          { redirectAdmin && <Navigate to="/admin/manage" /> }
+          { redirectCustomer && <Navigate to="/customer/products" /> }
+          { redirectSeller && <Navigate to="/seller/orders" /> }
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+            onClick={ () => { handleRegister(); } }
+          >
+            Ainda não tenho conta
+          </button>
+          { redirectRegister && <Navigate to="/register" /> }
+        </Form>
+      </LoginContainer>
       { messageError(errorMessage) }
-    </LoginContainer>
+    </Page>
   );
 }
 

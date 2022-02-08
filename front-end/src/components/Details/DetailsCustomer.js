@@ -1,14 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container2, Td2, Table2, Head2, Header2 } from './styles';
 
-function DetailsCustomer() {
+function DetailsCustomer({ order }) {
+  const { id, products, status, saleDate, seller } = order;
+
+  const changeDate = (date) => date.match(/(\d+-?){3}/)[0]
+    .split('-').reverse().join('/');
+
   return (
     <Container2>
       <Head2>
-        <Header2>PEDIDO 003</Header2>
-        <Header2>P. Venda: Fulana de Tal</Header2>
-        <Header2>07/04/2021</Header2>
-        <Header2>ENTREGUE</Header2>
+        <Header2>
+          { `Pedido ${id}` }
+        </Header2>
+        <Header2>
+          P. Vendedora:
+          <strong>
+            { seller && seller.name }
+          </strong>
+        </Header2>
+        <Header2>{ saleDate && changeDate(saleDate) }</Header2>
+        <Header2>{ status }</Header2>
         <Header2>MARCAR COMO ENTREGUE</Header2>
       </Head2>
       <Table2>
@@ -22,38 +35,64 @@ function DetailsCustomer() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <Td2>1</Td2>
-            <Td2>Cerveja Heineken 330ml</Td2>
-            <Td2>5</Td2>
-            <Td2>R$7,90</Td2>
-            <Td2>R$15,80</Td2>
-          </tr>
-          <tr>
-            <Td2>2</Td2>
-            <Td2>Cerveja Brahma 330ml</Td2>
-            <Td2>5</Td2>
-            <Td2>R$7,90</Td2>
-            <Td2>R$15,80</Td2>
-          </tr>
-          <tr>
-            <Td2>3</Td2>
-            <Td2>Cerveja Skoll 330ml</Td2>
-            <Td2>5</Td2>
-            <Td2>R$7,90</Td2>
-            <Td2>R$15,80</Td2>
-          </tr>
-          <tr>
-            <Td2>4</Td2>
-            <Td2>Cerveja Dolly 330ml</Td2>
-            <Td2>5</Td2>
-            <Td2>R$7,90</Td2>
-            <Td2>R$15,80</Td2>
-          </tr>
+          {
+            (products || []).map((product, i) => {
+              const { name, price, salesProduct: { quantity } } = product;
+              return (
+                <tr key={ i }>
+                  <Td2
+                    data-testid={
+                      `customer_order_details__element-order-table-item-number-${i}`
+                    }
+                  >
+                    { i + 1 }
+                  </Td2>
+                  <Td2
+                    data-testid={
+                      `customer_order_details__element-order-table-name-${i}`
+                    }
+                  >
+                    { name }
+                  </Td2>
+                  <Td2
+                    data-testid={
+                      `customer_order_details__element-order-table-quantity-${i}`
+                    }
+                  >
+                    { quantity }
+                  </Td2>
+                  <Td2>
+                    R$
+                    <strong
+                      data-testid={
+                        `customer_order_details__element-order-table-sub-total-${i}`
+                      }
+                    >
+                      { Number(price).toFixed(2).replace('.', ',') }
+                    </strong>
+                  </Td2>
+                  <Td2>
+                    R$
+                    <strong
+                      data-testid={
+                        `customer_order_details__element-order-total-price-${i}`
+                      }
+                    >
+                      { (price * quantity).toFixed(2).replace('.', ',') }
+                    </strong>
+                  </Td2>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </Table2>
     </Container2>
   );
 }
+
+DetailsCustomer.propTypes = {
+  order: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default DetailsCustomer;

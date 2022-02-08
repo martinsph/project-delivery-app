@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import ProductInput from './ProductsInput';
@@ -7,53 +8,61 @@ import {
   CardsContainer,
   Card,
   Image,
-  // Input,
   Span,
-  Cart,
+  Button,
 } from './styles';
 
 const Products = () => {
-  const [quantity, setQuantity] = useState(0);
+  const animationDelay = 25;
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  // const [totalPrice, setTotalPrice] = useState(0);
-  const [isLoading, setIsloading] = useState(true);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // const handleQuantity = ({ target }) => {
-  //   // const id = target.dataset.testid;
-  //   const valueQuantity = Number(target.value);
-  //   setQuantity(valueQuantity);
-  // };
   useEffect(() => {
     const fetchProducts = async () => {
+      const { token } = JSON.parse(localStorage.getItem('user'));
       const url = 'http://localhost:3001/products';
       const config = {
         method: 'GET',
         headers: {
+          Authorization: token,
           'Content-Type': 'application/json',
         },
       };
+      setIsLoading(true);
       try {
         const result = await fetch(url, config);
         const resultMessage = await result.json();
         setProducts(resultMessage);
-        setIsloading(false);
-        return resultMessage;
       } catch (error) {
-        return error;
+        console.log(err);
       }
+      setIsLoading(false);
     };
-    setQuantity(1);
     fetchProducts();
   }, []);
 
+  const updateCart = () => {
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
+    const total = Object.values(cart)
+      .reduce((subtotal, { subTotal }) => subtotal + subTotal, 0);
+    setTotalPrice(total);
+  };
+
+  const redirectUser = () => {
+    navigate('/customer/checkout');
+  };
+
   if (isLoading) return <Loading />;
+
   return (
     <Container>
-      <NavBar userRole="user" />
+      <NavBar userRole="customer" />
       <CardsContainer>
         {
-          products.map(({ id, name, price, url_image: urlImage }) => (
-            <Card key={ id }>
+          products.map(({ id, name, price, url_image: urlImage }, i) => (
+            <Card key={ id } style={ { animationDelay: `${i * animationDelay}ms` } }>
               <Span data-testid={ `customer_products__element-card-price-${id}` }>
                 <strong>
                   { price.replace('.', ',') }
@@ -70,24 +79,26 @@ const Products = () => {
                   { name }
                 </h4>
                 <form>
-                  {/* <Input
-                    data-testid={ `customer_products__input-card-quantity-${id}` }
-                    type="number"
-                    min="1"
-                    onChange={ handleQuantity }
-                  /> */}
-                  <ProductInput id={ id } />
+                  <ProductInput id={ id } updateCart={ updateCart } />
                 </form>
               </div>
             </Card>
           ))
         }
       </CardsContainer>
-      <Cart data-testid="customer_products__checkout-bottom-value">
-        <span>
-          { `Ver carrinho: R$ ${quantity}` }
-        </span>
-      </Cart>
+      <Button
+        data-testid="customer_products__button-cart"
+        onClick={ redirectUser }
+        type="button"
+        disabled={ totalPrice === 0 }
+      >
+        Ver carrinho: R$
+        <strong
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          { totalPrice.toFixed(2).replace('.', ',') }
+        </strong>
+      </Button>
     </Container>
   );
 };

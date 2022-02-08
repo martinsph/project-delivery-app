@@ -20,7 +20,7 @@ function CustomerOrders() {
 
   return (
     <Page>
-      <NavBar userRole="user" />
+      <NavBar userRole="customer" />
       <Container>
         { panels.map((_, i) => <Panel key={ i } id={ i } />) }
       </Container>

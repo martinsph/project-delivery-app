@@ -8,13 +8,18 @@ export const Container = styled.div`
 
 export const CardsContainer = styled.div`
   position: relative;
-  // border: 1px solid;
   justify-content: center;
   margin: auto;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: 40px;
+  margin: 40px 0;
   display: flex;
+`;
+
+export const Image = styled.img`
+  // height: 200px;
+  object-fit: fill;
+  // flex: 1;
 `;
 
 export const Card = styled.div`
@@ -22,25 +27,42 @@ export const Card = styled.div`
   flex-direction: column;
   height: 300px;
   width: 220px;
-  border: 1px solid;
   border-radius: 4px;
   overflow: hidden;
+  box-shadow: 0 0 0 rgba(0, 0, 0, .3);
   position: relative;
+  transform: scale(0);
+  animation: showUp 300ms 100ms ease-out forwards;
 
-  & div {
+  // Zoom no card ao pousar o cursor sobre ele
+  // &:hover {
+  //   transform: scale(3);
+  // }
+
+  & > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
     background-color: #EAF1EF;
-    padding: 20px;
-    padding-top: 10px;
+    // padding: 20px;
+    // padding-top: 10px;
     text-align: center;
   }
-`;
 
-export const Image = styled.img`
-  flex: 1;
-`;
+  // Gambiarra pq a primeira imagem do
+  // card tá zoada e não sei pq
+  &:first-of-type img {
+    object-fit: scale-down;
+    height: 220px;
+  }
 
-export const Input = styled.input`
-  width: 40px;
+  @keyframes showUp {
+    to {
+      transform: scale(1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+    }
+  }
 `;
 
 export const Span = styled.span`
@@ -49,7 +71,7 @@ export const Span = styled.span`
   left: 12px;
 `;
 
-export const Cart = styled.div`
+export const Button = styled.button`
   position: fixed;
   border-radius: 5px;
   padding: 16px;
