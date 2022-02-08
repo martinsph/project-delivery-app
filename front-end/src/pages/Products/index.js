@@ -92,7 +92,7 @@ const Products = () => {
       >
         Ver carrinho: R$
         <strong
-          data-testid="data-testid='customer_products__checkout-bottom-value"
+          data-testid="customer_products__checkout-bottom-value"
         >
           { totalPrice.toFixed(2).replace('.', ',') }
         </strong>

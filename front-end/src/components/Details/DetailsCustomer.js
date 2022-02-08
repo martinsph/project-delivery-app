@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import { Container2, Td2, Table2, Head2, Header2 } from './styles';
 
 function DetailsCustomer({ order }) {
-  console.log(order);
   const { id, products, status, saleDate, seller } = order;
 
-  const changeDate = (date) => {
-    const [y, m, d] = date.match(/\d+-\d+-\d+/g)[0].split('-');
-    return `${d}/${m}/${y}`;
-  };
+  const changeDate = (date) => date.match(/(\d+-?){3}/)[0]
+    .split('-').reverse().join('/');
 
   return (
     <Container2>
