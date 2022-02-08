@@ -40,12 +40,17 @@ const ProductInput = ({ id, updateCart }) => {
   const [unitPrice, setUnitPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
+  
+  const preventNegatives = (e) => {
+    if (e.key === 'Backspace' && quantity === 0) {
+      e.preventDefault();
+    }
+  };
 
   const handleProductQuantity = ({ target }) => {
     const { id: tagId } = target;
-
+    if (quantity === 0 && tagId === 'decrement') return;
     if (/\D/.test(target.value)) return;
-    if (quantity === 0 && id === 'decrement') return;
 
     // Todo: Refatorar esse monstro depois
     const productName = target.parentNode
@@ -89,8 +94,8 @@ const ProductInput = ({ id, updateCart }) => {
       </button>
       <Input
         value={ quantity }
-        min="0"
         id="quantity-input"
+        onKeyDown={ preventNegatives }
         onChange={ handleProductQuantity }
         data-testid={ `customer_products__input-card-quantity-${id}` }
       />
