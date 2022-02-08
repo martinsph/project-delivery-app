@@ -96,7 +96,6 @@ const Products = () => {
         >
           { totalPrice.toFixed(2).replace('.', ',') }
         </strong>
-          
       </Button>
     </Container>
   );
