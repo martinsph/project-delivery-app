@@ -39,7 +39,7 @@ function Login() {
     const register = await registerUser(data, route);
     if (register.token) {
       localStorage.setItem('user', JSON.stringify(register));
-      if (register.role === 'administrador') {
+      if (register.role === 'administrator') {
         return setRedirectAdmin(true);
       }
       if (register.role === 'seller') {
