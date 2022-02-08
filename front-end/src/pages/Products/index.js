@@ -85,6 +85,7 @@ const Products = () => {
         }
       </CardsContainer>
       <Button
+        data-testid="customer_products__button-cart"
         onClick={ redirectUser }
         type="button"
         disabled={ totalPrice === 0 }
