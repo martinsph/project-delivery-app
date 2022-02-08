@@ -109,7 +109,7 @@ function Login() {
           <button
             type="button"
             data-testid="common_login__button-register"
-            onClick={ () => { handleRegister(); } }
+            onClick={ () => { handleRegister() } }
           >
             Ainda não tenho conta
           </button>
