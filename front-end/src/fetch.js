@@ -1,10 +1,8 @@
 const registerUser = async (data, route) => {
-  const { token } = JSON.parse(localStorage.getItem('user'));
   const url = `http://localhost:3001/${route}`;
   const config = {
     method: 'post',
     headers: {
-      'Authorization': token,
       'Content-Type': 'application/json',
     },
     body: data,
