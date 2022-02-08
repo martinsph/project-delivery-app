@@ -29,10 +29,11 @@ function CheckoutDelivery() {
     .filter(({ quantity }) => quantity);
 
   const createSale = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
     const sale = await fetch('http://localhost:3001/sales', {
       method: 'POST',
       headers: new Headers({
-        // Authorization: token,
+        Authorization: token,
         'Content-Type': 'application/json',
       }),
       // Todo: Alterar payload estático

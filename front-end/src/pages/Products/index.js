@@ -21,10 +21,12 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      const { token } = JSON.parse(localStorage.getItem('user'));
       const url = 'http://localhost:3001/products';
       const config = {
         method: 'GET',
         headers: {
+          Authorization: token,
           'Content-Type': 'application/json',
         },
       };
