@@ -11,17 +11,25 @@ const payload = {
 };
 
 function CheckoutDelivery() {
+  const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState('');
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
-
-  const handleSeller = (e) => setSeller(e.target.value);
+  const [userId, setUserId] = useState(null);
+  const [sellerId, setSellerId] = useState(null);
+  
+  const handleSeller = (e) => {
+    const getSellerId = sellers.find(({ name }) => name === e.target.value ).id
+    console.log(getSellerId)
+    setSellerId(getSellerId)
+    setSeller(e.target.value)
+  }
   const handleAddress = (e) => setAddress(e.target.value);
   const handleNumber = (e) => setAddressNumber(e.target.value);
 
-  useEffect(() => {
-    console.log(seller, address, addressNumber);
-  }, [seller, address, addressNumber]);
+  // useEffect(() => {
+  //   console.log(seller, address, addressNumber);
+  // }, [seller, address, addressNumber]);
 
   const navigate = useNavigate();
   const products = Object.values(JSON.parse(localStorage.getItem('carrinho')))
@@ -42,8 +50,27 @@ function CheckoutDelivery() {
 
     const response = await sale.json();
 
+    localStorage.removeItem('carrinho');
+
     navigate(`/customer/orders/${response.id}`);
   };
+
+  
+  useEffect(() => {
+    const customerName = JSON.parse(localStorage.getItem('user')).name
+
+    const getSellers = async () => {
+      const sellers = await fetch('http://localhost:3001/user');
+      const data = await sellers.json();
+      const sellersOnly = data.filter(({ role }) => role === 'seller');
+      
+      const getUserId = data.find(({ name }) => name === customerName)
+      
+      setSellers(sellersOnly);
+    };
+    getSellers()
+    console.log(sellers);
+  }, []);
 
   return (
     <Form action="">
@@ -56,12 +83,15 @@ function CheckoutDelivery() {
           name="select-seller"
           id="select-seller"
         >
-          <option value="Fulana de Tal">
-            Fulana de tal
-          </option>
-          <option value="ABC">
-            ABC
-          </option>
+          { 
+            sellers.map(({ name }) => {
+              return (
+                <option value={ name }>
+                  { name } 
+                </option>
+              )
+            })
+          }
         </Select>
       </Label>
       <Label htmlFor="input-address">
