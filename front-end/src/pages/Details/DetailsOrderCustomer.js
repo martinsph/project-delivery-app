@@ -18,7 +18,7 @@ function DetailsOrderCustomer() {
       const data = await response.json();
       await setOrder(data);
     })();
-  }, []);
+  }, [id]);
 
   return (
     <Page>
@@ -28,7 +28,10 @@ function DetailsOrderCustomer() {
         <ContainerSectionSuperior>
           <DetailsCustomer order={ order } />
           <Span data-testid="customer_details">
-            { `Total: R$ ${order.totalPrice}` }
+            {
+              `Total: R$ ${order && order.totalPrice
+                && Number(order.totalPrice).toFixed(2).replace('.', ',')}`
+            }
           </Span>
         </ContainerSectionSuperior>
       </ContainerSection>

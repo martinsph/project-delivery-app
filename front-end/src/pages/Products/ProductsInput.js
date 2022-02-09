@@ -80,7 +80,7 @@ const ProductInput = ({ id, updateCart }) => {
     cart[id] = { name, unitPrice, quantity, subTotal };
     localStorage.setItem('carrinho', JSON.stringify(cart));
     updateCart();
-  }, [name, unitPrice, quantity, subTotal]);
+  }, [name, unitPrice, quantity, subTotal, id, updateCart]);
 
   return (
     <ControlsContainer>
