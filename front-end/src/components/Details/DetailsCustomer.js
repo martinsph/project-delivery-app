@@ -73,7 +73,9 @@ function DetailsCustomer({ order }) {
                   {i + 1}
                 </Td2>
                 <Td2
-                  data-testid={ `customer_order_details__element-order-table-name-${i + 1}` }
+                  data-testid={
+                    `customer_order_details__element-order-table-name-${i + 1}`
+                  }
                 >
                   {name}
                 </Td2>
