@@ -2,43 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Label, Button, Input, Select } from './styles';
 
-// const payload = {
-//   totalPrice: 200.15,
-//   deliveryAddress: 'Trybe',
-//   deliveryNumber: 22,
-//   userId: 4,
-//   sellerId: 2,
-// };
-
 function CheckoutDelivery() {
   const [sellers, setSellers] = useState([]);
   const [sellerName, setSellerName] = useState('');
   const [address, setAddress] = useState('');
   const [addressNumber, setAddressNumber] = useState('');
   const [userId, setUserId] = useState(null);
-  const [sellerId, setSellerId] = useState(null);
 
   const handleSeller = (e) => {
-    const getSellerId = sellers.find(({ name }) => name === e.target.value).id;
-    setSellerId(getSellerId);
     setSellerName(e.target.value);
   };
+
   const handleAddress = (e) => setAddress(e.target.value);
   const handleNumber = (e) => setAddressNumber(e.target.value);
-
-  // useEffect(() => {
-  //   console.log(seller, address, addressNumber);
-  // }, [seller, address, addressNumber]);
 
   const navigate = useNavigate();
   const products = Object.values(JSON.parse(localStorage.getItem('carrinho')))
     .map((product, id) => ({ id: id + 1, ...product }))
     .filter(({ quantity }) => quantity);
 
-  const createSale = async () => {
+  const createSale = async (e) => {
+    e.preventDefault();
     const { token } = JSON.parse(localStorage.getItem('user'));
     const totalPrice = Object.values(JSON.parse(localStorage.getItem('carrinho')))
       .reduce((subtotal, { subTotal }) => subtotal + subTotal, 0);
+
+    const { id: sellerId } = sellers
+      .find(({ name }) => name === e.target.elements.select.value);
 
     const payload = {
       totalPrice,
@@ -48,14 +38,13 @@ function CheckoutDelivery() {
       deliveryAddress: address,
       deliveryNumber: addressNumber,
     };
-    console.log(payload);
+
     const sale = await fetch('http://localhost:3001/sales', {
       method: 'POST',
-      headers: new Headers({
+      headers: {
         Authorization: token,
         'Content-Type': 'application/json',
-      }),
-      // Todo: Alterar payload estático
+      },
       body: JSON.stringify(payload),
     });
 
@@ -81,14 +70,14 @@ function CheckoutDelivery() {
   }, [sellers]);
 
   return (
-    <Form action="">
+    <Form onSubmit={ createSale }>
       <Label htmlFor="select-seller">
         P. Vendedora Responsável
         <Select
           onChange={ handleSeller }
           value={ sellerName }
           data-testid="customer_checkout__select-seller"
-          name="select-seller"
+          name="select"
           id="select-seller"
         >
           {
@@ -120,9 +109,8 @@ function CheckoutDelivery() {
       </Label>
 
       <Button
-        onClick={ createSale }
         data-testid="customer_checkout__button-submit-order"
-        type="button"
+        type="submit"
       >
         FINALIZAR PEDIDO
       </Button>
