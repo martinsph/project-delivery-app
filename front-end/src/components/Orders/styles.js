@@ -12,6 +12,13 @@ export const Card = styled.div`
     background: #e5e5e5;
     align-items: center;
     text-align: center;
+
+    & p {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
   }
   & .order-status {
     background: #D4C63B;
