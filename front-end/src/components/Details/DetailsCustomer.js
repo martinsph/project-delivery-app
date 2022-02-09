@@ -67,19 +67,19 @@ function DetailsCustomer({ order }) {
               <tr key={ i }>
                 <Td2
                   data-testid={
-                    `customer_order_details__element-order-table-item-number-${i}`
+                    `customer_order_details__element-order-table-item-number-${i + 1}`
                   }
                 >
                   {i + 1}
                 </Td2>
                 <Td2
-                  data-testid={ `customer_order_details__element-order-table-name-${i}` }
+                  data-testid={ `customer_order_details__element-order-table-name-${i + 1}` }
                 >
                   {name}
                 </Td2>
                 <Td2
                   data-testid={
-                    `customer_order_details__element-order-table-quantity-${i}`
+                    `customer_order_details__element-order-table-quantity-${i + 1}`
                   }
                 >
                   {quantity}
@@ -88,7 +88,7 @@ function DetailsCustomer({ order }) {
                   R$
                   <strong
                     data-testid={
-                      `customer_order_details__element-order-table-sub-total-${i}`
+                      `customer_order_details__element-order-table-sub-total-${i + 1}`
                     }
                   >
                     {Number(price).toFixed(2).replace('.', ',')}
@@ -98,7 +98,7 @@ function DetailsCustomer({ order }) {
                   R$
                   <strong
                     data-testid={
-                      `customer_order_details__element-order-total-price-${i}`
+                      `customer_order_details__element-order-total-price-${i + 1}`
                     }
                   >
                     {(price * quantity).toFixed(2).replace('.', ',')}
