@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Address } from './styles';
 
-function CheckoutDelivery({ address, order }) {
+function CheckoutDelivery({ order }) {
   const navigate = useNavigate();
-  const { id, totalPrice, status, saleDate } = order;
+  const { id, totalPrice, status, saleDate, deliveryAddress, deliveryNumber } = order;
   const renderAddress = () => (
     <Address
       data-testid={ `seller_orders__element-card-address-${id}` }
     >
-      Endereço, Nº 10
+      { `${deliveryAddress}, ${deliveryNumber}` }
     </Address>
   );
 
@@ -20,7 +20,9 @@ function CheckoutDelivery({ address, order }) {
     return newDate;
   };
 
-  const redirectUser = () => navigate(`/customer/orders/${id}`);
+  const userType = deliveryAddress ? 'seller' : 'customer';
+
+  const redirectUser = () => navigate(`/${userType}/orders/${id}`);
 
   return (
     <Card onClick={ redirectUser }>
@@ -52,11 +54,11 @@ function CheckoutDelivery({ address, order }) {
           <strong
             data-testid={ `seller_orders__element-card-price-${id}` }
           >
-            { totalPrice }
+            { Number(totalPrice).toFixed(2).replace('.', ',') }
           </strong>
         </p>
       </div>
-      { address && renderAddress() }
+      { deliveryAddress && renderAddress() }
     </Card>
   );
 }
@@ -64,7 +66,15 @@ function CheckoutDelivery({ address, order }) {
 export default CheckoutDelivery;
 
 CheckoutDelivery.propTypes = {
-  id: PropTypes.number.isRequired,
-  address: PropTypes.bool.isRequired,
-  order: PropTypes.objectOf(PropTypes.object).isRequired,
+  id: PropTypes.number,
+  deliveryAddress: PropTypes.string,
+  deliveryNumber: PropTypes.number,
+  order: PropTypes.objectOf(PropTypes.object),
+};
+
+CheckoutDelivery.defaultProps = {
+  id: 0,
+  deliveryAddress: '',
+  deliveryNumber: 0,
+  order: {},
 };

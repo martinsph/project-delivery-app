@@ -78,7 +78,6 @@ function CheckoutDelivery() {
       setSellers(sellersOnly);
     };
     getSellers();
-    console.log(sellers);
   }, [sellers]);
 
   return (
