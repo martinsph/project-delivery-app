@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container2, Td2, Table2, Head2, Header2 } from './styles';
@@ -7,6 +7,7 @@ const socket = io('http://localhost:3001');
 function DetailsCustomer({ order }) {
   const [currentStatus, setCurrentStatus] = useState('Pendente');
   const { id, products, status, saleDate, seller } = order;
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
   socket.on('orderPreparing', () => setCurrentStatus('Preparando'));
   socket.on('orderDispatch', () => setCurrentStatus('Em Trânsito'));
@@ -19,10 +20,19 @@ function DetailsCustomer({ order }) {
 
   const orderStatus1 = 'customer_order_details__';
 
-  const orderDelivered = (e) => {
-    e.target.disabled = true;
-    socket.emit('orderDelivered', { myId });
+  const orderDelivered = async (e) => {
     setCurrentStatus('Entregue');
+    socket.emit('orderDelivered');
+    e.target.disabled = true;
+
+    await fetch(`http://localhost:3001/sales/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Entregue' }),
+    });
   };
 
   useEffect(() => {
@@ -63,6 +73,7 @@ function DetailsCustomer({ order }) {
         <button
           data-testid="customer_order_details__button-delivery-check"
           type="button"
+          disabled={ currentStatus === 'Entregue' }
           onClick={ orderDelivered }
         >
           MARCAR COMO ENTREGUE

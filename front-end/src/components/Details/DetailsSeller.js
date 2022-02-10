@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container, Td, Table, Head, Header } from './styles';
@@ -7,11 +6,11 @@ import { Container, Td, Table, Head, Header } from './styles';
 const socket = io('http://localhost:3001');
 function DetailsSeller({ sale }) {
   const [currentStatus, setCurrentStatus] = useState('Pendente');
-  const [isPreparing, setIsPreparing] = useState(false);
   // const preparing = useRef();
   // const dispatched = useRef();
 
   const { id, saleDate, status, products } = sale;
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
   const changeDate = (date) => {
     const newDate = date.match(/(\d+-?){3}/)[0]
@@ -24,12 +23,11 @@ function DetailsSeller({ sale }) {
   }, [status]);
 
   const prepareOrder = async (e) => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
     setCurrentStatus('Preparando');
-    setIsPreparing(true);
-    e.target.disabled = true;
     socket.emit('orderPreparing');
-    const updateStatus = await fetch(`http://localhost:3001/sales/${id}`, {
+    e.target.disabled = true;
+
+    await fetch(`http://localhost:3001/sales/${id}`, {
       method: 'PUT',
       headers: {
         Authorization: token,
@@ -37,14 +35,21 @@ function DetailsSeller({ sale }) {
       },
       body: JSON.stringify({ status: 'Preparando' }),
     });
-
-    console.log(updateStatus);
   };
 
   const dispatchOrder = async (e) => {
     setCurrentStatus('Em Trânsito');
-    e.target.disabled = true;
     socket.emit('orderDispatch');
+    e.target.disabled = true;
+
+    await fetch(`http://localhost:3001/sales/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Em Trânsito' }),
+    });
   };
 
   socket.on('orderDelivered', () => {
@@ -81,6 +86,7 @@ function DetailsSeller({ sale }) {
         <button
           type="button"
           id="prepare"
+          disabled={ currentStatus !== 'Pendente' }
           onClick={ prepareOrder }
           data-testid="seller_order_details__button-preparing-check"
         >
@@ -90,7 +96,7 @@ function DetailsSeller({ sale }) {
         <button
           type="button"
           id="dispatch"
-          disabled={ !isPreparing }
+          disabled={ currentStatus !== 'Preparando' }
           onClick={ dispatchOrder }
           data-testid="seller_order_details__button-dispatch-check"
         >
