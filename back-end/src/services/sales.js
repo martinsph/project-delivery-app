@@ -1,8 +1,5 @@
 const { sale, salesProduct, user, product } = require('../database/models');
 
-// const stringSales = 'sale_id';
-// const stringProduct = 'product_id';
-
 const createSale = async ({ 
   totalPrice, deliveryAddress, deliveryNumber, products, userId, sellerId }) => {
   const newSale = await sale.create({
@@ -12,8 +9,6 @@ const createSale = async ({
   products.map(async ({ id, quantity }) => salesProduct.create(
     { productId: id, saleId: newSale.id, quantity },
     ));
-
-    // await Promise.all(createProducts);
     
     // for (let i = 0; i < products.length; i++) {
       //   // console.log(products[i].id);
