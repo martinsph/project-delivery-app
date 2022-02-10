@@ -1,42 +1,40 @@
 const { sale, salesProduct, user, product } = require('../database/models');
 
-const createSale = async ({
-  totalPrice, 
-  deliveryAddress, 
-  deliveryNumber, 
-  products, 
-  userId, 
-  sellerId
-}) => {
+// const stringSales = 'sale_id';
+// const stringProduct = 'product_id';
 
+const createSale = async ({ 
+  totalPrice, deliveryAddress, deliveryNumber, products, userId, sellerId }) => {
   const newSale = await sale.create({
-    totalPrice, 
-    deliveryAddress, 
-    deliveryNumber, 
-    userId, 
-    sellerId
+    totalPrice, deliveryAddress, deliveryNumber, userId, sellerId,
   });
 
-  // await products.forEach(async (productInfo) => {
-  //   await salesProduct.create({
-  //     productId: productInfo.id,
-  //     saleId: newSale.id,
-  //     quantity: productInfo.quantity,
-  //   });
-  // });
+  products.map(async ({ id, quantity }) => salesProduct.create(
+    { productId: id, saleId: newSale.id, quantity },
+    ));
 
-  for (let i = 0; i < products.length; i++) {
-    // console.log(products[i].id);
-    await salesProduct.create({
-          product_id: products[i].id,
-          sale_id: newSale.id,
-          quantity: products[i].quantity,
-        });
-  };
-
-  return newSale;
-};
-
+    // await Promise.all(createProducts);
+    
+    // for (let i = 0; i < products.length; i++) {
+      //   // console.log(products[i].id);
+      //   await salesProduct.create({
+        //         product_id: products[i].id,
+        //         sale_id: newSale.id,
+        //         quantity: products[i].quantity,
+        //       });
+        // }
+        
+        // await products.forEach(async (productInfo) => {
+        //   await salesProduct.create({
+        //     productId: productInfo.id,
+        //     saleId: newSale.id,
+        //     quantity: productInfo.quantity,
+        //   });
+        // });
+        
+        return newSale;
+      };
+      
 const getSaleById = async (id) => {
   const getSale = await sale.findByPk(
     id, {
