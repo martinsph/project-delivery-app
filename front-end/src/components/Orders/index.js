@@ -1,29 +1,64 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Address } from './styles';
 
-function CheckoutDelivery({ id, address }) {
+function CheckoutDelivery({ order }) {
+  const navigate = useNavigate();
+  const { id, totalPrice, status, saleDate, deliveryAddress, deliveryNumber } = order;
   const renderAddress = () => (
     <Address
       data-testid={ `seller_orders__element-card-address-${id}` }
     >
-      Endereço, Nº 10
+      { `${deliveryAddress}, ${deliveryNumber}` }
     </Address>
   );
 
+  const changeDate = (date) => {
+    const newDate = date.match(/(\d+-?){3}/)[0]
+      .split('-').reverse().join('/');
+    return newDate;
+  };
+
+  const userType = deliveryAddress ? 'seller' : 'customer';
+
+  const redirectUser = () => navigate(`/${userType}/orders/${id}`);
+
   return (
-    <Card>
+    <Card onClick={ redirectUser }>
       <div className="order-number">
-        <p data-testid={ `customer_orders__element-order-id-${id}` }> Pedido 0001 </p>
+        <p>
+          Pedido
+          <strong
+            data-testid={ `customer_orders__element-order-id-${id}` }
+          >
+            {id}
+          </strong>
+        </p>
       </div>
       <div className="order-status">
-        <h2 data-testid={ `customer_orders__element-delivery-status-${id}` }>Pendente</h2>
+        <h2
+          data-testid={ `customer_orders__element-delivery-status-${id}` }
+        >
+          { status }
+        </h2>
       </div>
       <div className="order-info">
-        <p data-testid={ `customer_orders__element-order-date-${id}` }>31/01/2022</p>
-        <p data-testid={ `seller_orders__element-card-price-${id}` }>R$23,30</p>
+        <p
+          data-testid={ `customer_orders__element-order-date-${id}` }
+        >
+          { changeDate(saleDate) }
+        </p>
+        <p>
+          R$
+          <strong
+            data-testid={ `seller_orders__element-card-price-${id}` }
+          >
+            { Number(totalPrice).toFixed(2).replace('.', ',') }
+          </strong>
+        </p>
       </div>
-      { address && renderAddress() }
+      { deliveryAddress && renderAddress() }
     </Card>
   );
 }
@@ -31,6 +66,15 @@ function CheckoutDelivery({ id, address }) {
 export default CheckoutDelivery;
 
 CheckoutDelivery.propTypes = {
-  id: PropTypes.number.isRequired,
-  address: PropTypes.bool.isRequired,
+  id: PropTypes.number,
+  deliveryAddress: PropTypes.string,
+  deliveryNumber: PropTypes.number,
+  order: PropTypes.objectOf(PropTypes.object),
+};
+
+CheckoutDelivery.defaultProps = {
+  id: 0,
+  deliveryAddress: '',
+  deliveryNumber: 0,
+  order: {},
 };

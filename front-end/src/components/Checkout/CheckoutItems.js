@@ -63,7 +63,10 @@ function CheckoutItems({ updateCart }) {
 
     localStorage.setItem('carrinho', JSON.stringify(payload));
 
-    updateCart();
+    const newValue = Object.values(JSON.parse(localStorage.getItem('carrinho')))
+      .reduce((subtotal, { subTotal }) => subtotal + subTotal, 0);
+
+    updateCart(newValue);
   };
 
   return (

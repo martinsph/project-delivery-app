@@ -50,7 +50,7 @@ const renderUserType = (role) => {
       <Link
         style={ style }
         data-testid="customer_products__element-navbar-link-orders"
-        to="/products"
+        to="/seller/orders"
       >
         Pedidos
       </Link>
@@ -61,7 +61,7 @@ const renderUserType = (role) => {
     <Link
       style={ style }
       data-testid="customer_products__element-navbar-link-orders"
-      to="/products"
+      to="/admin/manage"
     >
       Gerenciar Usuário
     </Link>

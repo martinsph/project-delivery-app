@@ -1,28 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
 import Panel from '../../components/Orders';
 import { Page, Container } from './styles';
 
-const arraySize = 6;
-
-const panels = Array(arraySize).fill();
-
 function CustomerOrders() {
-  // const [orders, setOrders] = useState([]);
-  // Renderiza os pedidos do usuário
-  // ao entrar no endpoint dos Meus Pedidos
+  const [orders, setOrders] = useState([]);
+
   useEffect(() => {
-    console.log(1);
-    // const myId = await fetch('http://localhost:3001/');
-    // const userOrders  = await fetch(`http://localhost:3001/sales/${myId}`);
-    // setOrders(userOrders);
+    const { name } = JSON.parse(localStorage.getItem('user'));
+    const getUsers = async () => {
+      const customers = await fetch('http://localhost:3001/user');
+      const users = await customers.json();
+      const { id } = users.find((user) => user.name === name);
+
+      const getOrders = await fetch(`http://localhost:3001/sales/customer/${id}`);
+      const customerOrders = await getOrders.json();
+      setOrders(customerOrders);
+    };
+
+    getUsers();
   }, []);
 
   return (
     <Page>
       <NavBar userRole="customer" />
       <Container>
-        { panels.map((_, i) => <Panel key={ i } id={ i } />) }
+        { orders.map((order, i) => <Panel key={ i } order={ order } />) }
       </Container>
     </Page>
   );
