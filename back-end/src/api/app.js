@@ -1,12 +1,13 @@
 const express = require('express');
+
 const app = express();
 const cors = require('cors');
 const http = require('http').createServer(app);
-const root = require('../controllers/root');
-const errors = require('../middlewares/handleErrors');
 const io = require('socket.io')(http, {
   cors: { origin: '*', methods: ['GET', 'POST'] },
 });
+const root = require('../controllers/root');
+const errors = require('../middlewares/handleErrors');
 
 io.on('connection', (socket) => {
   socket.on('orderPreparing', () => {

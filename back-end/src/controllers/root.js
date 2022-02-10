@@ -25,6 +25,6 @@ root.put('/sales/:id', (req, res) => {
   const updatedSale = sale.update({ status }, { where: { id } });
 
   return res.status(200).json(updatedSale);
-})
+});
 
 module.exports = root;
