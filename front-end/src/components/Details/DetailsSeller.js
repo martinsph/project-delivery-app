@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container, Td, Table, Head, Header } from './styles';
 
+const socket = io('http://localhost:3001');
 function DetailsSeller({ sale }) {
+  const [currentStatus, setCurrentStatus] = useState('Pendente');
+  // const preparing = useRef();
+  // const dispatched = useRef();
+
   const { id, saleDate, status, products } = sale;
+  const { token } = JSON.parse(localStorage.getItem('user'));
 
   const changeDate = (date) => {
     const newDate = date.match(/(\d+-?){3}/)[0]
@@ -11,13 +18,49 @@ function DetailsSeller({ sale }) {
     return newDate;
   };
 
-  const prepareOrder = async () => {
-    console.log(1);
+  useEffect(() => {
+    setCurrentStatus(status);
+  }, [status]);
+
+  const prepareOrder = async (e) => {
+    setCurrentStatus('Preparando');
+    socket.emit('orderPreparing');
+    e.target.disabled = true;
+
+    await fetch(`http://localhost:3001/sales/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Preparando' }),
+    });
   };
 
-  const dispatchOrder = async () => {
-    console.log(1);
+  const dispatchOrder = async (e) => {
+    setCurrentStatus('Em Trânsito');
+    socket.emit('orderDispatch');
+    e.target.disabled = true;
+
+    await fetch(`http://localhost:3001/sales/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Em Trânsito' }),
+    });
   };
+
+  socket.on('orderDelivered', () => {
+    const orderPrepare = document.querySelector('#prepare');
+    const orderDispatch = document.querySelector('#dispatch');
+
+    orderPrepare.disabled = true;
+    orderDispatch.disabled = true;
+
+    setCurrentStatus('Entregue');
+  });
 
   return (
     <Container>
@@ -38,10 +81,12 @@ function DetailsSeller({ sale }) {
         <Header
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          { status }
+          { currentStatus }
         </Header>
         <button
           type="button"
+          id="prepare"
+          disabled={ currentStatus !== 'Pendente' }
           onClick={ prepareOrder }
           data-testid="seller_order_details__button-preparing-check"
         >
@@ -50,6 +95,8 @@ function DetailsSeller({ sale }) {
 
         <button
           type="button"
+          id="dispatch"
+          disabled={ currentStatus !== 'Preparando' }
           onClick={ dispatchOrder }
           data-testid="seller_order_details__button-dispatch-check"
         >

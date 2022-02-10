@@ -2,6 +2,7 @@ const serviceSales = require('../../services/sales');
 
 const createSale = async (req, res, next) => {
   try {
+<<<<<<< HEAD
     const { totalPrice, deliveryAddress, deliveryNumber, products, 
       userId, 
       sellerId,
@@ -16,6 +17,12 @@ const createSale = async (req, res, next) => {
       sellerId,
     });
 
+=======
+    const sale = req.body;
+    
+    const result = await serviceSales.createSale(sale);
+    
+>>>>>>> 9a6daadb778ad2ef984c9065f11273ecd8208c0b
     return res.status(201).json(result);
   } catch (error) {
     next(error);
