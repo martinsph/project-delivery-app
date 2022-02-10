@@ -10,6 +10,9 @@ import DetailsSeller from './pages/Details/DetailsOrderSeller';
 import CustomerOrders from './pages/Orders/CustomerOrders';
 // import CustomerOrderId from './pages/Orders/CustomerOrderId';
 import SellerOrders from './pages/Orders/SellerOrders';
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:3001');
 
 function App() {
   return (
