@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container, Td, Table, Head, Header } from './styles';
@@ -23,19 +24,21 @@ function DetailsSeller({ sale }) {
   }, [status]);
 
   const prepareOrder = async (e) => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
     setCurrentStatus('Preparando');
     setIsPreparing(true);
     e.target.disabled = true;
     socket.emit('orderPreparing');
-    // const updateStatus = await fetch('http://localhost:3001', {
-    //   method: 'PUT',
-    //   headers: {
-    //     Authorization: token,
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
+    const updateStatus = await fetch(`http://localhost:3001/sales/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'Preparando' }),
+    });
 
-    // console.log(updateStatus);
+    console.log(updateStatus);
   };
 
   const dispatchOrder = async (e) => {
