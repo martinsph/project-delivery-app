@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container, Td, Table, Head, Header } from './styles';
 
+const socket = io('http://localhost:3001');
 function DetailsSeller({ sale }) {
+  const [currentStatus, setCurrentStatus] = useState('Pendente');
+  const [isPreparing, setIsPreparing] = useState(false);
+  // const preparing = useRef();
+  // const dispatched = useRef();
+
   const { id, saleDate, status, products } = sale;
 
   const changeDate = (date) => {
@@ -11,13 +18,41 @@ function DetailsSeller({ sale }) {
     return newDate;
   };
 
-  const prepareOrder = async () => {
-    console.log(1);
+  useEffect(() => {
+    setCurrentStatus(status);
+  }, [status]);
+
+  const prepareOrder = async (e) => {
+    setCurrentStatus('Preparando');
+    setIsPreparing(true);
+    e.target.disabled = true;
+    socket.emit('orderPreparing');
+    // const updateStatus = await fetch('http://localhost:3001', {
+    //   method: 'PUT',
+    //   headers: {
+    //     Authorization: token,
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+
+    // console.log(updateStatus);
   };
 
-  const dispatchOrder = async () => {
-    console.log(1);
+  const dispatchOrder = async (e) => {
+    setCurrentStatus('Em Trânsito');
+    e.target.disabled = true;
+    socket.emit('orderDispatch');
   };
+
+  socket.on('orderDelivered', () => {
+    const orderPrepare = document.querySelector('#prepare');
+    const orderDispatch = document.querySelector('#dispatch');
+
+    orderPrepare.disabled = true;
+    orderDispatch.disabled = true;
+
+    setCurrentStatus('Entregue');
+  });
 
   return (
     <Container>
@@ -38,10 +73,11 @@ function DetailsSeller({ sale }) {
         <Header
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          { status }
+          { currentStatus }
         </Header>
         <button
           type="button"
+          id="prepare"
           onClick={ prepareOrder }
           data-testid="seller_order_details__button-preparing-check"
         >
@@ -50,6 +86,8 @@ function DetailsSeller({ sale }) {
 
         <button
           type="button"
+          id="dispatch"
+          disabled={ !isPreparing }
           onClick={ dispatchOrder }
           data-testid="seller_order_details__button-dispatch-check"
         >

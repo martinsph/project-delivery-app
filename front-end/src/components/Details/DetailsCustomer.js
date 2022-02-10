@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { io } from 'socket.io-client';
 import PropTypes from 'prop-types';
 import { Container2, Td2, Table2, Head2, Header2 } from './styles';
 
+const socket = io('http://localhost:3001');
 function DetailsCustomer({ order }) {
+  const [currentStatus, setCurrentStatus] = useState('Pendente');
   const { id, products, status, saleDate, seller } = order;
+
+  socket.on('orderPreparing', () => setCurrentStatus('Preparando'));
+  socket.on('orderDispatch', () => setCurrentStatus('Em Trânsito'));
 
   const changeDate = (date) => date
     .match(/(\d+-?){3}/)[0]
@@ -11,7 +17,17 @@ function DetailsCustomer({ order }) {
     .reverse()
     .join('/');
 
-  const testId = 'customer_order_details__element-order-details-label-seller-name';
+  const orderStatus1 = 'customer_order_details__';
+
+  const orderDelivered = (e) => {
+    e.target.disabled = true;
+    socket.emit('orderDelivered', { myId });
+    setCurrentStatus('Entregue');
+  };
+
+  useEffect(() => {
+    setCurrentStatus(status);
+  }, [status]);
 
   return (
     <Container2>
@@ -29,22 +45,28 @@ function DetailsCustomer({ order }) {
           <strong
             data-testid="customer_order_details__element-order-details-label-seller-name"
           >
-            {seller && seller.name}
+            { seller && seller.name }
           </strong>
         </Header2>
         <Header2
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          {saleDate && changeDate(saleDate)}
-        </Header2>
-        <Header2 data-testid={ testId }>
-          {status}
+          { saleDate && changeDate(saleDate) }
         </Header2>
         <Header2
+          data-testid={
+            `${orderStatus1}element-order-details-label-delivery-status`
+          }
+        >
+          { currentStatus }
+        </Header2>
+        <button
           data-testid="customer_order_details__button-delivery-check"
+          type="button"
+          onClick={ orderDelivered }
         >
           MARCAR COMO ENTREGUE
-        </Header2>
+        </button>
       </Head2>
       <Table2>
         <thead>

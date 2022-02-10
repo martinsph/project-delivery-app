@@ -9,7 +9,17 @@ const io = require('socket.io')(http, {
 });
 
 io.on('connection', (socket) => {
-  console.log('Alguém se conectou!')
+  socket.on('orderPreparing', () => {
+    io.emit('orderPreparing');
+  });
+
+  socket.on('orderDelivered', () => {
+    io.emit('orderDelivered');
+  });
+
+  socket.on('orderDispatch', () => {
+    io.emit('orderDispatch');
+  });
 });
 
 app.use(express.json());
