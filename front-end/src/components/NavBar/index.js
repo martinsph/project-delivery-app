@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from './styles';
 
@@ -72,13 +72,13 @@ const NavbarComponent = ({ userRole }) => {
   const dataUser = JSON.parse(localStorage.getItem('user'));
   const { name: username } = dataUser;
   /* const [logout, setLogout] = useState(false); */
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLogout = () => {
     /* setLogout(true); */
     localStorage.removeItem('user');
     localStorage.removeItem('carrinho');
-    navigate('/');
+    return <Navigate to="/login" />
   };
   return (
     <Header>
