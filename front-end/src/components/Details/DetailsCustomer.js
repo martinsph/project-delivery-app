@@ -73,7 +73,7 @@ function DetailsCustomer({ order }) {
         <button
           data-testid="customer_order_details__button-delivery-check"
           type="button"
-          disabled={ currentStatus === 'Entregue' }
+          disabled={ currentStatus !== 'Em Trânsito' }
           onClick={ orderDelivered }
         >
           MARCAR COMO ENTREGUE
