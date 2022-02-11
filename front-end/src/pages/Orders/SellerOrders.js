@@ -25,7 +25,7 @@ function SellerOrders() {
     <Page2>
       <NavBar userRole="seller" />
       <Container2>
-        { orders.map((order, i) => <Panel key={ i } id={ i } order={ order } />) }
+        { orders.map((order, i) => <Panel seller key={ i } id={ i } order={ order } />) }
       </Container2>
     </Page2>
   );

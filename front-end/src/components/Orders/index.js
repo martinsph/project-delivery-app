@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Address } from './styles';
 
-function CheckoutDelivery({ order }) {
+function CheckoutDelivery({ order, seller }) {
   const navigate = useNavigate();
   const { id, totalPrice, status, saleDate, deliveryAddress, deliveryNumber } = order;
   const renderAddress = () => (
@@ -20,7 +20,7 @@ function CheckoutDelivery({ order }) {
     return newDate;
   };
 
-  const userType = deliveryAddress ? 'seller' : 'customer';
+  const userType = seller ? 'seller' : 'customer';
 
   const redirectUser = () => navigate(`/${userType}/orders/${id}`);
 
