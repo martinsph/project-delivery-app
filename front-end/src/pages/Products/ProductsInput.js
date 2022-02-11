@@ -77,7 +77,7 @@ const ProductInput = ({ id, updateCart }) => {
     // Todo: Previnir refresh do localStorage
     setSubTotal(quantity * unitPrice);
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    cart[id] = { name, unitPrice, quantity, subTotal };
+    cart[id] = { name, unitPrice, quantity, subTotal, id };
     localStorage.setItem('carrinho', JSON.stringify(cart));
     updateCart();
   }, [name, unitPrice, quantity, subTotal, id, updateCart]);

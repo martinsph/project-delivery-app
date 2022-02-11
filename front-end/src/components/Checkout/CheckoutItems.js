@@ -50,17 +50,16 @@ function CheckoutItems({ updateCart }) {
 
   const handleRemove = (id) => {
     const storageCart = Object.values(JSON.parse(localStorage.getItem('carrinho')))
-      .map((items, i) => {
-        if (id === i) return { ...items, quantity: 0 };
+      .map((items) => {
+        if (id === items.id) return { ...items, quantity: 0, subTotal: 0 };
         return items;
       })
-      .filter(({ quantity }) => quantity);
-
-    setCartItems(storageCart);
-
-    const payload = storageCart
-      .reduce((obj, item, i) => Object.assign(obj, { [i]: item }), {});
-
+      console.log(id)
+      setCartItems(storageCart.filter(({ quantity }) => quantity));
+      
+      const payload = storageCart
+      .reduce((obj, item, i) => Object.assign(obj, { [i]: item }), {})
+      
     localStorage.setItem('carrinho', JSON.stringify(payload));
 
     const newValue = Object.values(JSON.parse(localStorage.getItem('carrinho')))
@@ -82,7 +81,7 @@ function CheckoutItems({ updateCart }) {
         </tr>
       </thead>
       <tbody>
-        {cartItems.map(({ name, unitPrice, quantity, subTotal }, i) => (
+        {cartItems.map(({ name, unitPrice, quantity, subTotal, id}, i) => (
           <tr key={ i }>
             <Td
               data-testid={
@@ -119,13 +118,11 @@ function CheckoutItems({ updateCart }) {
             >
               { subTotal.toFixed(2).replace('.', ',') }
             </Td>
-            <Td
-              onClick={ () => handleRemove(i) }
+            <Td>
+              <button onClick={ () => handleRemove(id) }
               data-testid={
                 `customer_checkout__element-order-table-remove-${i}`
-              }
-            >
-              Remover
+              }>Remover</ button>
             </Td>
           </tr>
         ))}

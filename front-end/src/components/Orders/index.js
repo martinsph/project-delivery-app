@@ -30,7 +30,7 @@ function CheckoutDelivery({ order }) {
         <p>
           Pedido
           <strong
-            data-testid={ `customer_orders__element-order-id-${id}` }
+            data-testid={ `${userType}_orders__element-order-id-${id}` }
           >
             {id}
           </strong>
@@ -38,21 +38,21 @@ function CheckoutDelivery({ order }) {
       </div>
       <div className="order-status">
         <h2
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
+          data-testid={ `${userType}_orders__element-delivery-status-${id}` }
         >
           { status }
         </h2>
       </div>
       <div className="order-info">
         <p
-          data-testid={ `customer_orders__element-order-date-${id}` }
+          data-testid={ `${userType}_orders__element-order-date-${id}` }
         >
           { changeDate(saleDate) }
         </p>
         <p>
           R$
           <strong
-            data-testid={ `seller_orders__element-card-price-${id}` }
+            data-testid={ `${userType}_orders__element-card-price-${id}` }
           >
             { Number(totalPrice).toFixed(2).replace('.', ',') }
           </strong>

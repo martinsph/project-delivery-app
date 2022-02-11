@@ -61,7 +61,6 @@ function CheckoutDelivery() {
       const sellersAll = await fetch('http://localhost:3001/user');
       const data = await sellersAll.json();
       const sellersOnly = data.filter(({ role }) => role === 'seller');
-
       const getUserId = data.find(({ name }) => name === customerName).id;
       setUserId(getUserId);
       setSellers(sellersOnly);

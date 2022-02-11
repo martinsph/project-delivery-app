@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Navigate } from 'react-router-dom';
 import registerUser from '../../fetch';
@@ -50,10 +50,23 @@ function Login() {
     if (register.message) return setErrorMessage(register.message);
   };
 
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user')) || { role: "" };
+    if (user.role === 'administrator') {
+      return setRedirectAdmin(true);
+    }
+    if (user.role === 'seller') {
+      return setRedirectSeller(true);
+    }  
+    if (user.role === 'customer') {
+      return setRedirectCustomer(true);
+    }
+  }, []);
   // Se usuário já estiver logado, redirecioná-lo
   // para sua home page, dependendo do seu role
-  // const user = localStorage.getItem('user');
-  // if (user) return <Navigate to="/customer/products" />;
+  // // if (user) return <Navigate to="/customer/products" />;
+
 
   const handleRegister = () => {
     setRedirectRegister(true);
