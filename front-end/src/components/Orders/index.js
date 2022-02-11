@@ -70,6 +70,7 @@ CheckoutDelivery.propTypes = {
   deliveryAddress: PropTypes.string,
   deliveryNumber: PropTypes.number,
   order: PropTypes.objectOf(PropTypes.object),
+  seller: PropTypes.string,
 };
 
 CheckoutDelivery.defaultProps = {
@@ -77,4 +78,5 @@ CheckoutDelivery.defaultProps = {
   deliveryAddress: '',
   deliveryNumber: 0,
   order: {},
+  seller: '',
 };

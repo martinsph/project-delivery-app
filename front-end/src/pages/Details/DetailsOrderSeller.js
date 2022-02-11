@@ -30,7 +30,7 @@ function DetailsOrderSeller() {
         <ContainerSectionSuperior2>
           <DetailsSeller sale={ sale } />
           <Span2 data-testid="seller_details">
-          Total: R$
+            Total: R$
             <p data-testid="seller_order_details__element-order-total-price">
               {
                 sale && sale.totalPrice
