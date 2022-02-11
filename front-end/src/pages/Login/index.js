@@ -50,15 +50,14 @@ function Login() {
     if (register.message) return setErrorMessage(register.message);
   };
 
-
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user')) || { role: "" };
+    const user = JSON.parse(localStorage.getItem('user')) || { role: '' };
     if (user.role === 'administrator') {
       return setRedirectAdmin(true);
     }
     if (user.role === 'seller') {
       return setRedirectSeller(true);
-    }  
+    }
     if (user.role === 'customer') {
       return setRedirectCustomer(true);
     }
@@ -66,7 +65,6 @@ function Login() {
   // Se usuário já estiver logado, redirecioná-lo
   // para sua home page, dependendo do seu role
   // // if (user) return <Navigate to="/customer/products" />;
-
 
   const handleRegister = () => {
     setRedirectRegister(true);
